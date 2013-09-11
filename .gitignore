@@ -32,3 +32,6 @@
 *.tdo
 
 .DS_Store
+
+*.class
+.metadata

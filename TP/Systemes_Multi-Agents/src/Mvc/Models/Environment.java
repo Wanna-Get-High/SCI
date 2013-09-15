@@ -16,7 +16,7 @@ public class Environment {
 	Agent[][] space;
 	
 	/** */
-	int size;
+	public int size;
 	
 	
 	public Environment(int size) {

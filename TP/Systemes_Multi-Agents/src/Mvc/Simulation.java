@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import Mvc.Models.Agent;
 import Mvc.Models.Environment;
 import Mvc.Models.Sma;
+import Mvc.Views.View;
 
 public class Simulation {
 
@@ -43,6 +44,8 @@ public class Simulation {
 			}
 			
 			Sma sma = new Sma(env, agents);
+			
+			View view = new View(sma);
 			
 			sma.run(nbTurn);
 		}

@@ -7,7 +7,7 @@ import java.util.Observable;
 
 public class Sma extends Observable {
 
-	Environment environment;
+	public Environment environment;
 	ArrayList<Agent> agents;
 	
 	
@@ -37,7 +37,7 @@ public class Sma extends Observable {
 	public void printTable() {
 		int size = this.environment.getSize();
 		Agent[][] agents = this.environment.getAgents();
-		
+				
 		String separator = "";
 		for (int i = 0; i < size ; i++) {
 			for (int j = 0; j < size; j++) {

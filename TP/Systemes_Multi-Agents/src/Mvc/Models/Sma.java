@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
 
+import Mvc.Views.View;
+
 
 public class Sma extends Observable {
 
 	public Environment environment;
 	ArrayList<Agent> agents;
-	
-	
+		
 	public Sma(Environment env, ArrayList<Agent> agents) {
 		this.environment = env;
-		this.agents = agents;	
+		this.agents = agents;
 	}
 	
 	public void run(int nbOfTurn) {
@@ -27,9 +28,16 @@ public class Sma extends Observable {
 				agent.doAction();
 				this.setChanged();
 			}
-			
+
+			this.notifyObservers();
 			this.printTable();
 			
+			try {
+				Thread.sleep(150);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

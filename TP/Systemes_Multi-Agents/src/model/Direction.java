@@ -1,4 +1,4 @@
-package Mvc.Models;
+package model;
 
 public class Direction {
 	

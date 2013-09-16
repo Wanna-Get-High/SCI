@@ -1,4 +1,7 @@
-package Mvc.Models;
+package model;
+
+import java.awt.Color;
+import java.util.Random;
 
 /**
  * This is the agent class.
@@ -24,7 +27,11 @@ public class Agent {
 	/** The current direction of the agent */
 	protected Direction currentDirection;
 	
+	/** The id of this Agent */
 	protected int id;
+	
+	/** The color that will be used to represent this agent in the view */
+	protected Color color;
 	
 	public Agent(Environment env, int id) {
 		this.environment = env;
@@ -35,7 +42,7 @@ public class Agent {
 	/**
 	 * Initialize the place of this agent in the environment and it's direction.
 	 * 
-	 * For now it just get a random place and a random direction.
+	 * For now it just get a random place, a random direction and a random color.
 	 */
 	private void init() {
 		this.environment.getPlace(this);
@@ -44,6 +51,10 @@ public class Agent {
 		int y = (int)(Math.random()*3)-1;
 		
 		this.currentDirection = new Direction(x, y);
+		
+		Random randomfloat = new Random();
+		
+		this.color = new Color(randomfloat.nextFloat(),randomfloat.nextFloat(),randomfloat.nextFloat());
 	}
 	
 	/**
@@ -173,5 +184,14 @@ public class Agent {
 	 */
 	public void y (int y) { this.y = y; }
 	
+	/**
+	 * Get the id of this Agent.
+	 * 
+	 * @return id of this Agent.
+	 */
 	public int id() { return this.id; }
+	
+	
+	public Color color() { return this.color; }
+	
 }

@@ -53,4 +53,8 @@ public class Sma extends Observable {
 		
 		System.out.println(separator);
 	}
+	
+	public Environment getEnvironment() { return this.environment; }
+	
+	public ArrayList<Agent> getAgents() { return this.agents; }
 }

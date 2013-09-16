@@ -1,0 +1,42 @@
+ \documentclass[a4paper,10pt]{article}
+\input{/Users/WannaGetHigh/workspace/latex/macros.tex}
+
+\title{Rapport TP1 : SMA - Billes}
+\author{François \bsc{Lepan} - Alexis \bsc{Linke}}
+
+\begin{document}
+\maketitle
+
+\section{Choix}
+
+Nous avons fait le choix de partir sur un systeme de deplacement sur une grille case par case. Deux agents ne peuvent  se retrouver sur une meme case.
+
+Les couleurs des agents sont fixe lors du placement de ceux-ci dans l'environnement.
+
+\section{UML + explication}
+
+
+=================UML====================
+
+L'organisation est la suivante :  
+
+Le design pattern utilisé pour réaliser ce programme est le MVC.  
+
+il y a 3 packages : core, view et model. Core contient la classe principale \verb&Simulation& qui execute le programme. Ensuite view contient les classes \verb&BallsPanel& qui represente le panel sur lequel on dessine les billes et \verb&EnvironmentRepresentation& qui est la vue du mvc ainsi que la fenetre dans laquelle on ajoute le panel \verb&BallsPanel&. Et enfin on a le package model qui lui contient toutes les classes necessaire aux calcules de collisions ainsi que de position tout au long de l'execution. La classe Agent contient les donnees nécessaire pour situer et identifier un agent au sein de l'environnement. La classe \verb&Environment& contient une grille d'Agent et possède une méthode d'allocation de place sur cette grille qui est utilisé lors de l'ajout d'un agent dans la classe \verb&MultiAgentSystem&. Cette classe est le model. Elle contient une liste d'Agent ainsi que l'\verb&Environment& dans lequel les agents se meuvent et la méthodes run qui à chaque tour donne la parole à chaques agents de façon équitable.
+ 
+\section{Compilation + fonctionnement}
+ 
+\paragraph{Compilation} ~\\
+Se mettre dans le dossier src $\rightarrow$ \verb&javac core/Simulation.java&
+
+\paragraph{Execution} ~\\
+Ne pas gouger du dossier src \\
+\verb&java core.Simulation <taille> <nb agent> <nb tour> <delai entre chaque tour>& \\
+Si on rentre un nombre de tour = -1 alors c'est infini
+
+\paragraph{Exemples} ~\\
+\verb&java core.Simulation 100 50 -1 5& \\
+\verb&java core.Simulation 10 5 100 5& \\
+\verb&java core.Simulation 50 40 -1 5& \\
+
+\end{document}

@@ -17,13 +17,16 @@ public class BallsPanel extends JPanel {
 	/** */
 	private static final long serialVersionUID = -4236374735008339909L;
 	
-	/** */
+	/** The The space in which the Agents will move and do actions. */
 	private Agent[][] space;
 	
 	public BallsPanel(Agent[][] space) {
 		this.space = space;
 	}
 
+	/**
+	 * Paint the balls depending on their position in the space
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		

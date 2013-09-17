@@ -10,7 +10,8 @@ package model;
  */
 public class Environment {
 	
-	/** The space in which the Agents will move and do actions.<b> 
+	/** 
+	  * The space in which the Agents will move and do actions.<b> 
 	  * It is a square depending on the variable size entered at the creation of this class.  
 	  */
 	private Agent[][] space;
@@ -75,7 +76,7 @@ public class Environment {
 	 * @param x the x axis value
 	 * @param y the y axis value
 	 * @param agent the agent to be placed
-	 * @return if (x > this.size || y > this.size || x < 0 || y < 0) null else the agent.
+	 * @return if (x > this.size || y > this.size || x < 0 || y < 0) false else true.
 	 */
 	public boolean setAgentAt(int x, int y, Agent agent) {
 		if (x > this.size || y > this.size || x < 0 || y < 0) return false;

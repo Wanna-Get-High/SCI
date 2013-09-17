@@ -30,7 +30,7 @@ public class EnvironmentRepresentation extends JFrame implements Observer {
 	/**
 	 * Initialize the view and add the this class as an observer of the model Sma. 
 	 */
-	public void init() {
+	private void init() {
 		// subscribe to the model 
 		this.mas.addObserver(this);
 

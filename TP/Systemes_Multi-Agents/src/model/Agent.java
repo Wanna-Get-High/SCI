@@ -35,6 +35,7 @@ public class Agent {
 	public Agent(Environment env, int id) {
 		this.environment = env;
 		this.id = id;
+		this.currentDirection = new Direction();
 		
 		this.init();
 	}
@@ -47,14 +48,9 @@ public class Agent {
 	private void init() {
 		this.environment.getPlace(this);
 		
-		int x = (int)(Math.random()*3)-1;
-		int y = (int)(Math.random()*3)-1;
+		this.currentDirection.getRandomDirection();
 		
-		this.currentDirection = new Direction(x, y);
-		
-		Random randomfloat = new Random();
-		
-		this.color = new Color(randomfloat.nextFloat(),randomfloat.nextFloat(),randomfloat.nextFloat());
+		this.color = this.getRandomColor();
 	}
 	
 	/**
@@ -102,36 +98,19 @@ public class Agent {
 				this.y(newYPlace);
 				
 			} else { // the new place isn't empty
-				
-				// TODO : make it more natural
-				
+
 				this.reverseDirectionOfX();
 				this.reverseDirectionOfY();
-				
-				/*
-				Agent encounterdAgent = this.space[newXPlace][newYPlace];
-						
-				int encounteredAgentXDirection = encounterdAgent.getDirectionOfX();
-				int encounteredAgentYDirection = encounterdAgent.getDirectionOfY();
-				
-				int xDirection = agent.getDirectionOfX();
-				int yDirection = agent.getDirectionOfY(); 
-				
-				if ( encounteredAgentXDirection + xDirection == 0 ) {
-					agent.reverseDirectionOfX();
-				} else if ( encounteredAgentXDirection + xDirection == 0 ) {
-					
-				}
-				
-				if ( encounteredAgentYDirection + yDirection == 0) {
-					agent.reverseDirectionOfY();
-				}
-				*/
-				
 			}
 		}
 	}
 	
+	
+	private Color getRandomColor() {
+		Random randomfloat = new Random();
+		
+		return new Color(randomfloat.nextFloat(),randomfloat.nextFloat(),randomfloat.nextFloat());
+	}
 	
 	public void setNewDirectionOfX(int x) { this.currentDirection.x(x); }
 	

@@ -10,6 +10,10 @@ public class Direction {
 		this.y = y;
 	}
 	
+	public Direction() {
+		this(0,0);
+	}
+	
 	public void reverseDirections() {
 		this.reverseXDirection();
 		this.reverseYDirection();
@@ -26,4 +30,16 @@ public class Direction {
 	public void x(int x) { this.x = x; }
 	
 	public void y(int y) { this.y = y; }
+
+	public void getRandomDirection() {
+		
+		this.x = (int)(Math.random()*3)-1;
+		this.y = (int)(Math.random()*3)-1;
+		
+		while(x == 0 && y == 0 ) {
+			this.x = (int)(Math.random()*3)-1;
+			this.y = (int)(Math.random()*3)-1;
+		}
+		
+	}
 }

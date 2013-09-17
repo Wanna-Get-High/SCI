@@ -32,15 +32,15 @@ public class BallsPanel extends JPanel {
 		
 		int size = space.length;
 
-		int widthFactor = this.getWidth()/size;
-		int heightFactor = this.getHeight()/size;
+		float widthFactor = this.getWidth()/size;
+		float heightFactor = this.getHeight()/size;
 		
 		for(int x=0; x< size; x++) {
 			for(int y=0; y < size; y++) {
 				
 				if(space[x][y]!=null) {
 					g.setColor(space[x][y].color());
-					g.fillOval(x*widthFactor, y*heightFactor, widthFactor-2, heightFactor-2);
+					g.fillOval((int)(x*widthFactor), (int)(y*heightFactor), (int)widthFactor, (int)heightFactor);
 				}
 			}
 		}

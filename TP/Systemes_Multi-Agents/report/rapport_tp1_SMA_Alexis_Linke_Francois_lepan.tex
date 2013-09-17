@@ -11,7 +11,7 @@
 
 Nous sommes partis sur un syst\`eme de d\'eplacement sur une grille case par case. Deux agents ne peuvent  se retrouver sur une m\^eme case.
 
-Nous avons fait ce choix car le syst\`eme de collision ainsi que la repr\'esentation sur un panel est plus facile \`a g\'erer qu'un syst\`eme de d\'eplacement libre.
+Nous avons fait ce choix car le syst\`eme de collision ainsi que la repr\'esentation sur un \verb&JPanel& est plus facile \`a g\'erer qu'un syst\`eme de d\'eplacement libre.
 
 Les couleurs des agents sont fix\'es lors de leurs cr\'eation.
 
@@ -27,7 +27,7 @@ Les couleurs des agents sont fix\'es lors de leurs cr\'eation.
 
 \newpage 
 
-Le design pattern utilis\'e pour r\'ealiser ce programme est le MVC.  Il y a 3 packages : core, view et model. 
+Le design pattern utilis\'e pour r\'ealiser ce programme est le MVC.  Il y a 3 packages : \emph{core}, \emph{view} et \emph{model}. 
 
 Le package \emph{core} contient la classe principale \verb&Simulation& qui ex\'ecute le programme. 
 
@@ -41,7 +41,7 @@ Et enfin on a le package \emph{model} qui lui contient toutes les classes n\'ece
 Se mettre dans le dossier src $\rightarrow$ \verb&javac core/Simulation.java&
 
 \paragraph{Execution} ~\\
-Ne pas gouger du dossier src \\
+Ne pas bouger du dossier src \\
 \verb&java core.Simulation <taille> <nb agent> <nb tour> <delai entre chaque tour>& \\
 Si on rentre un nombre de tour = -1 alors c'est infini
 
@@ -49,5 +49,9 @@ Si on rentre un nombre de tour = -1 alors c'est infini
 \verb&java core.Simulation 100 50 -1 5& \\
 \verb&java core.Simulation 10 5 100 5& \\
 \verb&java core.Simulation 50 40 -1 5& \\
+
+\section{Probl\`eme}
+
+Nous avons un probl\`eme pour le redimensionnement de la fen\`etre, il y a un e\'cart qui se forme en bas et \`a droite de cette fen\`etre
 
 \end{document}

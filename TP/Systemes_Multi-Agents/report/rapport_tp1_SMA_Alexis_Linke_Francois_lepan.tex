@@ -2,27 +2,38 @@
 \input{/Users/WannaGetHigh/workspace/latex/macros.tex}
 
 \title{Rapport TP1 : SMA - Billes}
-\author{François \bsc{Lepan} - Alexis \bsc{Linke}}
+\author{Fran\c{c}ois \bsc{Lepan} - Alexis \bsc{Linke}}
 
 \begin{document}
 \maketitle
 
 \section{Choix}
 
-Nous avons fait le choix de partir sur un systeme de deplacement sur une grille case par case. Deux agents ne peuvent  se retrouver sur une meme case.
+Nous sommes parti sur un syst\`eme de d\'eplacement sur une grille case par case. Deux agents ne peuvent  se retrouver sur une m\^eme case.
 
-Les couleurs des agents sont fixe lors du placement de ceux-ci dans l'environnement.
+Nous avons fait ce choix car le syst\`eme de collision ainsi que la repr\'esentation sur un panel est plus facile \`a g\'erer qu'un syst\`eme de d\'eplacement libre.
+
+Les couleurs des agents sont fix\'es lors de leurs cr\'eation.
 
 \section{UML + explication}
 
+\begin{figure}[ht]
+\begin{center}
+	\includegraphics[height=9.3cm , width=11cm]{uml/sci_uml_tp1.pdf}
+\end{center}
+	\caption{UML}
+	\label{uml}
+\end{figure}
 
-=================UML====================
+\newpage 
 
-L'organisation est la suivante :  
+Le design pattern utilis\'e pour r\'ealiser ce programme est le MVC.  Il y a 3 packages : core, view et model. 
 
-Le design pattern utilisé pour réaliser ce programme est le MVC.  
+Le package \emph{core} contient la classe principale \verb&Simulation& qui ex\'ecute le programme. 
 
-il y a 3 packages : core, view et model. Core contient la classe principale \verb&Simulation& qui execute le programme. Ensuite view contient les classes \verb&BallsPanel& qui represente le panel sur lequel on dessine les billes et \verb&EnvironmentRepresentation& qui est la vue du mvc ainsi que la fenetre dans laquelle on ajoute le panel \verb&BallsPanel&. Et enfin on a le package model qui lui contient toutes les classes necessaire aux calcules de collisions ainsi que de position tout au long de l'execution. La classe Agent contient les donnees nécessaire pour situer et identifier un agent au sein de l'environnement. La classe \verb&Environment& contient une grille d'Agent et possède une méthode d'allocation de place sur cette grille qui est utilisé lors de l'ajout d'un agent dans la classe \verb&MultiAgentSystem&. Cette classe est le model. Elle contient une liste d'Agent ainsi que l'\verb&Environment& dans lequel les agents se meuvent et la méthodes run qui à chaque tour donne la parole à chaques agents de façon équitable.
+Ensuite le package \emph{view} contient les classes \verb&BallsPanel& qui repr\'esente le panel sur lequel on dessine les billes et \verb&EnvironmentRepresentation& qui est la \emph{vue} du MVC ainsi que la fen\`etre dans laquelle on ajoute le panel \verb&BallsPanel&. 
+
+Et enfin on a le package \emph{model} qui lui contient toutes les classes n\'ecessaire aux calcules de collisions ainsi que de position tout au long de l'ex\'ecution du programme. La classe \verb&Agent& contient les donn\'ees n\'ecessaires pour situer et identifier un agent au sein de l'environnement. La classe \verb&Environment& contient une grille d'\verb&Agent& et poss\`ede une m\'ethode \verb&getPlace(Agent)& qui permet d'allouer une place sur cette grille qui est utilis\'e lors de l'ajout d'un agent dans la classe \verb&MultiAgentSystem&. Cette classe est le \emph{model}. Elle contient une liste d'\verb&Agent& ainsi que l'\verb&Environment& dans lequel les agents se meuvent et la m\'ethode \verb&run()& qui \`a chaque tour donne la parole \`a chaque agents de fa\c{c}on \'equitable.
  
 \section{Compilation + fonctionnement}
  

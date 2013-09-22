@@ -19,7 +19,7 @@ public class EnvironmentRepresentation extends JFrame implements Observer {
 	private static final long serialVersionUID = -2889322164507336236L;
 
 	/** The model containing the data */
-	MultiAgentSystem mas;
+	public MultiAgentSystem mas;
 
 	public EnvironmentRepresentation(MultiAgentSystem mas) {
 		this.mas = mas;

@@ -9,11 +9,14 @@ import java.util.Random;
  * This class is used to store the position, current direction
  * and the behavior of the agent in the environment.
  * 
- * @author François Lepan - Alexis Linke
+ * @author Francois Lepan - Alexis Linke
  *
  */
 public class Agent {
 
+	/** The type of the agent */
+	private String type;
+	
 	/** The position of the agent on the x axis of the environment. */
 	private int x;
 	
@@ -51,6 +54,8 @@ public class Agent {
 		this.currentDirection.getRandomDirection();
 		
 		this.color = this.getRandomColor();
+		
+		this.type = "AGENT";
 	}
 	
 	/**
@@ -175,7 +180,29 @@ public class Agent {
 	 */
 	public int id() { return this.id; }
 	
+	/**
+	 * Get the environment of this Agent.
+	 * 
+	 * @return environment of this Agent.
+	 */
+	public Environment environment() { return this.environment; }
+	
+	/**
+	 * Get the type of this Agent.
+	 * 
+	 * @return type of this Agent.
+	 */
+	public String type() { return this.type; }
+	
+	/**
+	 * Set the type of this Agent.
+	 * 
+	 * @param type of this Agent.
+	 */
+	public void setType(String type) { this.type=type; }
 	
 	public Color color() { return this.color; }
+	
+	public void setColor(Color color) { this.color=color; }
 	
 }

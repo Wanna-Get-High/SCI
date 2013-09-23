@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import model.Agent;
+import model.Ball;
 
 /**
  * This class is the panel that draw the balls inside the environment.
@@ -39,7 +40,7 @@ public class BallsPanel extends JPanel {
 			for(int y=0; y < size; y++) {
 				
 				if(space[x][y]!=null) {
-					g.setColor(space[x][y].color());
+					g.setColor(((Ball)space[x][y]).color());
 					g.fillOval((int)(x*widthFactor), (int)(y*heightFactor), (int)widthFactor, (int)heightFactor);
 				}
 			}

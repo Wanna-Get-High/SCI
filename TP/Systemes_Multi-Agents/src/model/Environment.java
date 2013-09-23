@@ -19,12 +19,10 @@ public class Environment {
 	/** The size of the space */
 	private int size;
 	
-	
 	public Environment(int size) {
 		this.size = size;		
 		this.space = new Agent[size][size];
 	}
-	
 	
 	/**
 	 * This method search for a random place inside the space <b> 

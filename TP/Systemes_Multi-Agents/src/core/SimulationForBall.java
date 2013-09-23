@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import view.EnvironmentRepresentation;
 
 import model.Agent;
+import model.Ball;
 import model.Environment;
 import model.MultiAgentSystem;
 
@@ -18,20 +19,20 @@ import model.MultiAgentSystem;
  * @author Francois Lepan - Alexis Linke
  *
  */
-public class Simulation {
+public class SimulationForBall {
 
 	/**
 	 * prints the usage of this class if the 4 parameters aren't valid or present
 	 */
 	public void usage() {
 		System.out.println("Usage :");
-		System.out.println("java Simulation.class <environment size> <number of agent> <number of turns> <delay between each turn>");
+		System.out.println("java "+this.getClass().getCanonicalName()+" <environment size> <number of agent> <number of turns> <delay between each turn>");
 		System.out.println();
 	}
 	
 	public static void main(String[] args) {
 		
-		Simulation s = new Simulation();
+		SimulationForBall s = new SimulationForBall();
 		
 		int size = 0;
 		int nbAgent = 0;
@@ -63,7 +64,7 @@ public class Simulation {
 			
 			// we create the agents
 			ArrayList <Agent> agents = new ArrayList<Agent>();
-			for (int i = 0; i < nbAgent; i++) agents.add(new Agent(env, i+1));
+			for (int i = 0; i < nbAgent; i++) agents.add(new Ball(env, i+1));
 			
 			// then we create the Model
 			MultiAgentSystem mas = new MultiAgentSystem(env, agents);

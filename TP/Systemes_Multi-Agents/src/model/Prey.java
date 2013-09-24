@@ -23,6 +23,7 @@ public class Prey extends Agent {
 		this.breed = breed;
 		this.nbCyles = 0;
 		this.type("PREY");
+		this.environment().getPlace(this);
 	}
 	
 	@Override

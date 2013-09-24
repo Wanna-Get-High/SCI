@@ -1,5 +1,6 @@
 package core;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import view.EnvironmentRepresentation;
@@ -9,8 +10,10 @@ import model.Ball;
 import model.Particules;
 import model.Environment;
 import model.MultiAgentSystem;
+import model.People;
 import model.Predator;
 import model.Prey;
+import model.Schelling;
 import model.Wator;
 
 /**
@@ -47,6 +50,8 @@ public class Simulation {
 		int preybreed = 0;
 		int predatorbreed = 0;
 		int starve = 0;
+		int nbPeople = 0;
+		float threshold = 0;
 		
 		if(args[0].equals("-b")) {
 			if (args.length < 4) {
@@ -117,7 +122,40 @@ public class Simulation {
 				
 				// then we run the simulation
 				mas.run(nbTurn,delay);
-		} else {
+				
+		} else if(args[0].equals("-s")) {
+			
+				try {
+					size = Integer.valueOf(args[1]);
+					nbPeople = Integer.valueOf(args[2]);	
+					threshold = Float.valueOf(args[3]);
+					nbTurn = Integer.valueOf(args[4]);
+					delay = Integer.valueOf(args[5]);
+				} catch (NumberFormatException e) {
+					System.out.println("the arguments has to be integers");
+				}
+				
+				// we create the environment
+				Schelling sch = new Schelling(size);
+				
+				// we create the agents
+				ArrayList <Agent> agents = new ArrayList<Agent>();
+				for (int i=0; i < nbPeople; i++) 
+					if(i%2 == 0)
+						agents.add(new People(sch,Color.BLUE,threshold));
+					else
+						agents.add(new People(sch,Color.YELLOW,threshold));
+						
+				// then we create the Model
+				MultiAgentSystem mas = new MultiAgentSystem(sch, agents);
+				
+				// we create the view
+				new EnvironmentRepresentation(mas);
+				
+				// then we run the simulation
+				mas.run(nbTurn,delay);
+				
+		}else {
 			//TODO : display usage
 		}
 	}

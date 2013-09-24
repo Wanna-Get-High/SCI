@@ -26,6 +26,7 @@ public class Predator extends Agent {
 		this.nbCyles = 0;
 		this.color = Color.RED;
 		this.type("PREDATOR");
+		this.environment().getPlace(this);
 	}
 
 	/**

@@ -47,6 +47,9 @@ public class MultiAgentSystem extends Observable {
 			Collections.shuffle(this.agents);
 			
 			for (Agent agent : this.agents) agent.doAction();
+			
+			this.environment.removeAgentsTo(this.agents);
+			this.environment.addAgentsTo(this.agents);
 
 			// telling that this model has changed
 			// then notify its views
@@ -63,34 +66,6 @@ public class MultiAgentSystem extends Observable {
 			i++;
 		}
 	}
-	
-	/**
-	 * This method is only used for test purpose.
-	 * It prints the Environment with the Agent inside.
-	 * 
-	 * 0 if the cell is empty and the id of an Agent otherwise.
-	 */
-	public void printTable() {
-		
-		int size = this.environment.getSize();
-		Agent[][] agents = this.environment.getAgents();		
-		String separator = "";
-		
-		for (int i = 0; i < size ; i++) {
-			for (int j = 0; j < size; j++) {
-				
-				if (agents[i][j] == null) {
-					System.out.print(0 + " ");
-				} else {
-					System.out.print(agents[i][j].id() + " ");
-				}
-			}
-			System.out.println();
-			separator += "==";
-		}
-		
-		System.out.println(separator);
-	}
 
 	/**
 	 * Gets the environment of this SMA.
@@ -105,4 +80,14 @@ public class MultiAgentSystem extends Observable {
 	 * @return an ArrayList containing all of the Agent of the environment
 	 */
 	public ArrayList<Agent> getAgents() { return this.agents; }
+
+	public void remove(Prey prey) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void add() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,24 +1,40 @@
 package model;
 
 import java.awt.Color;
-import java.util.Random;
 
-public class Ball extends Agent {
+/**
+ * 
+ * 
+ * @author Alexis Linke - Francois Lepan
+ *
+ */
+public class Prey extends Agent {
+
+	/** The number of cycle of this prey */
+	private int nbCyles;
 	
-	/** The color that will be used to represent this agent in the view */
-	protected Color color;
-	
-	public Ball(Environment env) {
+	/** Number of cycles a prey must exist before reproducing */
+	private int breed;
+
+	public Prey(Environment env, int breed) {
 		super(env);
-		this.environment.getPlace(this);
-		this.currentDirection.getRandomDirection();
-		this.color = this.getRandomColor();
+		
+		this.color = Color.GREEN;
+		this.breed = breed;
+		this.nbCyles = 0;
+		this.type("PREY");
 	}
-
+	
 	@Override
 	public void doAction() {
+		this.nbCyles++;
+
+		if(this.nbCyles % this.breed == 0) { 
+			this.reproduct();
+		}
+			
 		this.move();
-	}
+	}	
 	
 	/**
 	 * An action of this Agent.
@@ -29,7 +45,7 @@ public class Ball extends Agent {
 		
 		int newXPlace = this.getXPlaceAfterMovement();
 		int newYPlace = this.getYPlaceAfterMovement();
-		int size = this.environment.getSize();
+		int size = this.environment().getSize();
 		
 		// encounter a wall
 		if (newXPlace >= size || newYPlace >= size || newXPlace < 0 || newYPlace < 0 ) {
@@ -43,14 +59,13 @@ public class Ball extends Agent {
 			
 		} else {
 			
-			Agent agent = this.environment.getAgentAt(newXPlace, newYPlace);
+			Agent agent = this.environment().getAgentAt(newXPlace, newYPlace);
 			
 			// the new place is empty
 			if (agent == null) {
-				
 				this.environment.setAgentAt(this.x, this.y, null);
 				this.environment.setAgentAt(newXPlace, newYPlace, this);
-				
+			
 				this.x(newXPlace);
 				this.y(newYPlace);
 				
@@ -62,12 +77,7 @@ public class Ball extends Agent {
 		}
 	}
 	
+	private void reproduct() { ((Wator)this.environment).addPrey(); }
 	
-	private Color getRandomColor() {
-		Random randomfloat = new Random();
-		
-		return new Color(randomfloat.nextFloat(),randomfloat.nextFloat(),randomfloat.nextFloat());
-	}
 	
-	public Color color() { return this.color; }
 }

@@ -13,7 +13,7 @@ import model.MultiAgentSystem;
  * @author Alexis Linke - Francois Lepan
  *
  */
-public abstract class EnvironmentRepresentation extends JFrame implements Observer {
+public class EnvironmentRepresentation extends JFrame implements Observer {
 
 	/** */
 	private static final long serialVersionUID = -2889322164507336236L;
@@ -23,14 +23,14 @@ public abstract class EnvironmentRepresentation extends JFrame implements Observ
 
 	public EnvironmentRepresentation(MultiAgentSystem mas) {
 		this.mas = mas;
-		
+		 
 		this.init();
 	}
 	
 	/**
 	 * Initialize the view and add the this class as an observer of the model Sma. 
 	 */
-	protected abstract void init() {
+	protected void init() {
 		
 		// subscribe to the model 
 		this.mas.addObserver(this);
@@ -43,11 +43,6 @@ public abstract class EnvironmentRepresentation extends JFrame implements Observ
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	/**
-	 * Add the  
-	 */
-	protected abstract void addPanel(); 
 
 	@Override
 	public void update(Observable o, Object arg) {

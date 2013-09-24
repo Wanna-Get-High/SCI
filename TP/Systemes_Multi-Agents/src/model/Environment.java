@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * This class stock the Environment.
  * 
@@ -8,7 +10,11 @@ package model;
  * 
  * @author Francois Lepan - Alexis Linke
  */
-public class Environment {
+public abstract class Environment {
+	
+	protected ArrayList<Agent> agentsToAdd;
+	
+	protected ArrayList<Agent> agentsToRemove;
 	
 	/** 
 	  * The space in which the Agents will move and do actions.<b> 
@@ -20,6 +26,9 @@ public class Environment {
 	private int size;
 	
 	public Environment(int size) {
+		this.agentsToAdd = new ArrayList<Agent>();
+		this.agentsToRemove = new ArrayList<Agent>();	
+		
 		this.size = size;		
 		this.space = new Agent[size][size];
 	}
@@ -47,7 +56,12 @@ public class Environment {
 		
 		this.space[xPlace][yPlace] = agent;
 	}
+	
 
+	public abstract void addAgentsTo(ArrayList<Agent> agents);
+	
+	public abstract void removeAgentsTo(ArrayList<Agent> agents);
+	
 	/**
 	 * Get the size of the environment.
 	 * 
@@ -89,4 +103,5 @@ public class Environment {
 	 * @return the space.
 	 */
 	public Agent[][] getAgents() { return this.space; }
+
 }

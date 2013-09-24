@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 /**
  * This is the agent class.<b>
  * <b>
@@ -8,16 +10,22 @@ package model;
  * <b>
  * It has to be inherited by another class that will implement the behavior of a particular agent.
  * 
- * @author François Lepan - Alexis Linke
+ * @author Francois Lepan - Alexis Linke
  *
  */
 public abstract class Agent {
 
+	/** The type of the agent */
+	private String type;
+	
 	/** The position of the agent on the x axis of the environment. */
 	protected int x;
 	
 	/** The position of the agent on the y axis of the environment. */
 	protected int y;
+	
+	/** the color of this agent in the Environment*/
+	protected Color color;
 	
 	/** The environment where the agent is moving */
 	protected Environment environment;
@@ -25,21 +33,10 @@ public abstract class Agent {
 	/** The current direction of the agent */
 	protected Direction currentDirection;
 	
-	/** The id of this Agent */
-	protected int id;
-	
-	public Agent(Environment env, int id) {
+	public Agent(Environment env) {
 		this.environment = env;
-		this.id = id;
 		this.currentDirection = new Direction();
-		
-		this.init();
 	}
-	
-	/**
-	 * Initialize the place of this agent in the environment and it's direction.
-	 */
-	protected abstract void init();
 	
 	/**
 	 * The main method of this class.
@@ -129,10 +126,31 @@ public abstract class Agent {
 	public void y (int y) { this.y = y; }
 	
 	/**
-	 * Get the id of this Agent.
+	 * Get the environment of this Agent.
 	 * 
-	 * @return id of this Agent.
+	 * @return environment of this Agent.
 	 */
-	public int id() { return this.id; }
+	public Environment environment() { return this.environment; }
+	
+	/**
+	 * Get the type of this Agent.
+	 * 
+	 * @return type of this Agent.
+	 */
+	public String type() { return this.type; }
+	
+	/**
+	 * Set the type of this Agent.
+	 * 
+	 * @param type of this Agent.
+	 */
+	public void type(String type) { this.type=type; }
+	
+	/**
+	 * Get the color of this agent.
+	 * 
+	 * @return the color of this agent
+	 */
+	public Color color() { return this.color; }
 	
 }

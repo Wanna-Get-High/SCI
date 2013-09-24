@@ -21,23 +21,50 @@ public class People extends Agent {
 
 	public void doAction() {
 		Agent[][] agents = this.environment().getAgents();
-		float nbVoisin=0; 
-		float nbSatisfaction=0;
-		for(int i=this.x-1; i<=this.x+1;i++) {
-			for(int j=this.y-1; j<=this.y+1; j++) {
-				if(i!=this.x && j!=this.y)
-					if(i>-1 && i<this.environment().getSize() && j>-1 && j<this.environment().getSize()) {
-						if(agents[i][j] !=null) {
-							nbVoisin++;
-							if(agents[i][j].color().equals(this.color)) {
-								nbSatisfaction++;
-							}
-						}
-					}
-			}
-		}
-		if(nbVoisin!=0)
-			this.satisfaction=nbSatisfaction/nbVoisin;
+		float nNeighbor=0; 
+		float nSatisfaction=0;
+		try { if(agents[this.x()-1][this.y()-1]!=null) {
+			nNeighbor++;
+			if(agents[this.x()-1][this.y()-1].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()][this.y()-1]!=null) {
+			nNeighbor++;
+			if(agents[this.x()][this.y()-1].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()+1][this.y()-1]!=null) {
+			nNeighbor++;
+			if(agents[this.x()+1][this.y()-1].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()-1][this.y()]!=null) {
+			nNeighbor++;
+			if(agents[this.x()-1][this.y()].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()+1][this.y()]!=null) {
+			nNeighbor++;
+			if(agents[this.x()+1][this.y()].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()-1][this.y()+1]!=null) {
+			nNeighbor++;
+			if(agents[this.x()-1][this.y()+1].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()][this.y()+1]!=null) {
+			nNeighbor++;
+			if(agents[this.x()][this.y()+1].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		try {if(agents[this.x()+1][this.y()+1]!=null) {
+			nNeighbor++;
+			if(agents[this.x()+1][this.y()+1].color().equals(this.color()))
+				nSatisfaction++;
+		}} catch(ArrayIndexOutOfBoundsException e) {}
+		if(nNeighbor!=0)
+			this.satisfaction=nSatisfaction/nNeighbor;
 		if(this.satisfaction<threshold) {
 			this.move();
 		}
@@ -47,5 +74,7 @@ public class People extends Agent {
 		this.environment().getAgents()[this.x][this.y]=null;
 		this.environment().getPlace(this);	
 	}
+	
+	public float satisfaction() { return this.satisfaction; }
 
 }

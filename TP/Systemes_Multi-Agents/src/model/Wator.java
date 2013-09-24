@@ -56,4 +56,6 @@ public class Wator extends Environment {
 	private Predator newPredator() {
 		return new Predator(this, this.predatorbreed, this.starve);
 	}
+	
+	public void writeData() {}
 }

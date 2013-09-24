@@ -50,6 +50,7 @@ public class MultiAgentSystem extends Observable {
 			
 			this.environment.removeAgentsTo(this.agents);
 			this.environment.addAgentsTo(this.agents);
+			this.environment.writeData();
 
 			// telling that this model has changed
 			// then notify its views

@@ -62,6 +62,8 @@ public abstract class Environment {
 	
 	public abstract void removeAgentsTo(ArrayList<Agent> agents);
 	
+	public abstract void writeData();
+	
 	/**
 	 * Get the size of the environment.
 	 * 

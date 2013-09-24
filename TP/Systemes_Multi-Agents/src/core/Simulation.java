@@ -23,7 +23,7 @@ import model.Wator;
  * @author Francois Lepan - Alexis Linke
  *
  */
-public class SimulationForBall {
+public class Simulation {
 
 	/**
 	 * prints the usage of this class if the 4 parameters aren't valid or present
@@ -36,7 +36,7 @@ public class SimulationForBall {
 	
 	public static void main(String[] args) {
 		
-		SimulationForBall s = new SimulationForBall();
+		Simulation s = new Simulation();
 		
 		int size = 0;
 		int nbAgent = 0;

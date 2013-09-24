@@ -38,7 +38,7 @@ public class EnvironmentRepresentation extends JFrame implements Observer {
 		this.setSize(500,500);
 		
 		// add the panel that draw the balls to this JFrame
-		this.add(new BallsPanel(this.mas.getEnvironment().getAgents()));
+		this.add(new DrawingPanel(this.mas.getEnvironment().getAgents()));
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

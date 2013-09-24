@@ -80,14 +80,4 @@ public class MultiAgentSystem extends Observable {
 	 * @return an ArrayList containing all of the Agent of the environment
 	 */
 	public ArrayList<Agent> getAgents() { return this.agents; }
-
-	public void remove(Prey prey) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void add() {
-		// TODO Auto-generated method stub
-		
-	}
 }

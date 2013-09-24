@@ -13,7 +13,7 @@ import model.Ball;
  * @author Alexis Linke - Francois Lepan
  *
  */
-public class BallsPanel extends JPanel {
+public class DrawingPanel extends JPanel {
 
 	/** */
 	private static final long serialVersionUID = -4236374735008339909L;
@@ -21,7 +21,7 @@ public class BallsPanel extends JPanel {
 	/** The The space in which the Agents will move and do actions. */
 	private Agent[][] space;
 	
-	public BallsPanel(Agent[][] space) {
+	public DrawingPanel(Agent[][] space) {
 		this.space = space;
 	}
 

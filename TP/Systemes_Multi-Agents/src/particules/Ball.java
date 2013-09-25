@@ -1,14 +1,15 @@
-package model;
+package particules;
 
 import java.awt.Color;
 import java.util.Random;
 
+import core.Agent;
+import core.Environment;
+
+
 
 
 public class Ball extends Agent {
-	
-	/** The color that will be used to represent this agent in the view */
-	protected Color color;
 	
 	public Ball(Environment env) {
 		super(env);

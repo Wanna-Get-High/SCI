@@ -1,6 +1,9 @@
-package model;
+package wator;
 
 import java.awt.Color;
+
+import core.Agent;
+import core.Environment;
 
 
 /**

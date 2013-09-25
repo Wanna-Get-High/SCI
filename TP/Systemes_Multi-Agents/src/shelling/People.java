@@ -1,6 +1,9 @@
-package model;
+package shelling;
 
 import java.awt.Color;
+
+import core.Agent;
+import core.Environment;
 
 public class People extends Agent {
 	

@@ -1,6 +1,10 @@
-package model;
+package particules;
 
 import java.util.ArrayList;
+
+import core.Agent;
+import core.Environment;
+
 
 
 public class Particules extends Environment {

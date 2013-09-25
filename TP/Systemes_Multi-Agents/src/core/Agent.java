@@ -1,6 +1,7 @@
-package model;
+package core;
 
 import java.awt.Color;
+
 
 
 /**

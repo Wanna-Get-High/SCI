@@ -1,9 +1,12 @@
-package model;
+package wator;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import core.Agent;
+import core.Environment;
 
 
 /**

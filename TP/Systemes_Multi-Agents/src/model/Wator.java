@@ -1,5 +1,8 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -70,6 +73,7 @@ public class Wator extends Environment {
 		return new Predator(this, this.predatorbreed, this.starve);
 	}
 	
+
 	public String getNbPredPrey() {
 		int nbPred = 0;
 		int nbPrey = 0;
@@ -88,7 +92,7 @@ public class Wator extends Environment {
 			}
 		}
 		
-		return nbPred + " " + nbPrey + "\n";
+		return nbPred + " " + nbPrey;
 	}
 	
 	public String getAges() {
@@ -108,6 +112,25 @@ public class Wator extends Environment {
 			}
 		}
 		
-		return ages + " \n";
+		return ages;
+	}
+
+	public void writeData() {
+		BufferedWriter bufWriter;
+	    FileWriter fileWriter;
+	    
+		try {
+			 fileWriter = new FileWriter("ages_prey_pred.txt", true);
+		     bufWriter = new BufferedWriter(fileWriter);
+	         bufWriter.write(this.getAges());
+	         bufWriter.newLine();
+	         bufWriter.close();
+	         
+	         fileWriter = new FileWriter("population_prey_pred.txt", true);
+		     bufWriter = new BufferedWriter(fileWriter);
+	         bufWriter.write(this.getNbPredPrey());
+	         bufWriter.newLine();
+	         bufWriter.close();
+		} catch (IOException e) {}
 	}
 }

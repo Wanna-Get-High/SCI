@@ -14,4 +14,7 @@ public class Particules extends Environment {
 
 	@Override
 	public void removeAgentsTo(ArrayList<Agent> agents) {}
+
+	@Override
+	public void writeData() {}
 }

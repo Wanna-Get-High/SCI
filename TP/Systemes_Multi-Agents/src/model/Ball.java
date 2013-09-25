@@ -3,6 +3,8 @@ package model;
 import java.awt.Color;
 import java.util.Random;
 
+
+
 public class Ball extends Agent {
 	
 	/** The color that will be used to represent this agent in the view */
@@ -48,11 +50,7 @@ public class Ball extends Agent {
 			// the new place is empty
 			if (agent == null) {
 				
-				this.environment.setAgentAt(this.x, this.y, null);
-				this.environment.setAgentAt(newXPlace, newYPlace, this);
-				
-				this.x(newXPlace);
-				this.y(newYPlace);
+				this.environment.moveAgent(this, newXPlace, newYPlace);
 				
 			} else { // the new place isn't empty
 
@@ -68,6 +66,4 @@ public class Ball extends Agent {
 		
 		return new Color(randomfloat.nextFloat(),randomfloat.nextFloat(),randomfloat.nextFloat());
 	}
-	
-	public Color color() { return this.color; }
 }

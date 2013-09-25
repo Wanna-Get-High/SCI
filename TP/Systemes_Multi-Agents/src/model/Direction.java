@@ -36,10 +36,22 @@ public class Direction {
 		this.x = (int)(Math.random()*3)-1;
 		this.y = (int)(Math.random()*3)-1;
 		
-		while(x == 0 && y == 0 ) {
+		while(this.x == 0 && this.y == 0 ) {
 			this.x = (int)(Math.random()*3)-1;
 			this.y = (int)(Math.random()*3)-1;
 		}
+	}
+
+	public void getDifferentRandomDirection() {
+		int previousX = this.x;
+		int previousY = this.y;
 		
+		this.x = (int)(Math.random()*3)-1;
+		this.y = (int)(Math.random()*3)-1;
+		
+		while (this.x == previousX && this.y == previousY ) {
+			this.x = (int)(Math.random()*3)-1;
+			this.y = (int)(Math.random()*3)-1;
+		}
 	}
 }

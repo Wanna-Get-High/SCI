@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+
 public class Particules extends Environment {
 
 	public Particules(int size) {

@@ -2,8 +2,12 @@ package model;
 
 import java.awt.Color;
 
+
 /**
+ * This is the Predator agent used in the Simulation based on the prey - predator.
  * 
+ * This class stores the data needed to be able to run the simulation :
+ * the starving value
  * 
  * @author Alexis Linke - Francois Lepan
  *
@@ -12,6 +16,9 @@ public class Predator extends Agent {
 	
 	/** The number of cycle of this predator */
 	private int nbCyles;
+	
+	/** The number of cycle done since this predator ate something */
+	private int starveCyle;
 	
 	/** Number of cycles a predator must exist before reproducing */
 	private int breed;
@@ -24,8 +31,11 @@ public class Predator extends Agent {
 		this.breed = breed;
 		this.starve = starve;
 		this.nbCyles = 0;
+		this.starveCyle = 0;
 		this.color = Color.RED;
 		this.type("PREDATOR");
+		this.environment.getPlace(this);
+		this.currentDirection.getRandomDirection();
 	}
 
 	/**
@@ -34,17 +44,20 @@ public class Predator extends Agent {
 	 * Decide what to do for this agent.
 	 */
 	public void doAction() {
-		this.nbCyles++;
 		
-		if(this.nbCyles == this.starve) { 
-			this.starveToDeath(); 
+		if (this.starveCyle == this.starve) { 
+			this.starveToDeath();
 		} else {
+			
 			if(this.nbCyles % this.breed == 0) {
 				this.reproduct();
 			}
 			
-			this.move();
+			this.move();	
 		}
+		
+		this.nbCyles++;
+		this.starveCyle++;
 	}
 
 	/**
@@ -54,13 +67,14 @@ public class Predator extends Agent {
 	 */
 	private void move() {
 		
-		int newXPlace = this.getXPlaceAfterMovement();
-		int newYPlace = this.getYPlaceAfterMovement();
 		int size = this.environment().getSize();
 		
+		//int newXPlace = (this.getXPlaceAfterMovement() + size) % size;
+		//int newYPlace = (this.getYPlaceAfterMovement() + size) % size;
 		
-		
-		
+		int newXPlace = this.getXPlaceAfterMovement();
+		int newYPlace = this.getXPlaceAfterMovement();
+
 		// encounter a wall
 		if (newXPlace >= size || newYPlace >= size || newXPlace < 0 || newYPlace < 0 ) {
 			if (newXPlace >= size || newXPlace < 0) {
@@ -78,44 +92,30 @@ public class Predator extends Agent {
 			// the new place is empty
 			if (agent == null) {
 				
-				this.environment().setAgentAt(this.x(), this.y(), null);
-				this.environment().setAgentAt(newXPlace, newYPlace, this);
-				
-				this.x(newXPlace);
-				this.y(newYPlace);
+				this.environment.moveAgent(this, newXPlace, newYPlace);
 				
 			} else { // the new place isn't empty
 				
 				if(agent.type().equals("PREY")) {
-
+						
+					this.starveCyle = 0;
 					this.kill((Prey)agent);
 
-					// remove from the environment
-					this.environment().setAgentAt(newXPlace, newYPlace, null);
-					this.environment().setAgentAt(newXPlace, newYPlace, this);
-
-					// set the place of this agent
-					this.x(newXPlace);
-					this.y(newYPlace);
-					
+					this.environment.moveAgent(this, newXPlace, newYPlace);
 					
 				} else {
-					this.reverseXDirection();
-					this.reverseYDirection();
+					this.currentDirection.getDifferentRandomDirection();
 				}
 			}
 		}
 	}
 		
 	
-	private void kill(Prey prey) {
-	}
+	private void kill(Prey prey) { ((Wator)(this.environment)).removePrey(prey);}
 	
-	private void reproduct() {
-	}
+	private void reproduct() { ((Wator)(this.environment)).addPredator(); }
 
-	private void starveToDeath() {
-	}
+	private void starveToDeath() { ((Wator)(this.environment)).removePredator(this); }
 	
-
+	public String getAge() { return this.nbCyles + ""; }
 }

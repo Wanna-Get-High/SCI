@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 
+
 /**
  * 
  * 
@@ -23,6 +24,8 @@ public class Prey extends Agent {
 		this.breed = breed;
 		this.nbCyles = 0;
 		this.type("PREY");
+		this.environment.getPlace(this);
+		this.currentDirection.getRandomDirection();
 	}
 	
 	@Override
@@ -42,42 +45,29 @@ public class Prey extends Agent {
 	 * Move the agent in the environment.
 	 */
 	private void move() {
-		
-		int newXPlace = this.getXPlaceAfterMovement();
-		int newYPlace = this.getYPlaceAfterMovement();
+
 		int size = this.environment().getSize();
 		
-		// encounter a wall
-		if (newXPlace >= size || newYPlace >= size || newXPlace < 0 || newYPlace < 0 ) {
-			if (newXPlace >= size || newXPlace < 0) {
-				this.reverseXDirection();
-			}
+		// to make a toric environment 
+		int newXPlace = (this.getXPlaceAfterMovement() + size) % size;
+		int newYPlace = (this.getYPlaceAfterMovement() + size) % size;
+		
+		Agent agent = this.environment.getAgentAt(newXPlace, newYPlace);
+		
+		// the new place is empty
+		if (agent == null) {
 			
-			if (newYPlace >= size || newYPlace < 0) {
-				this.reverseYDirection();
-			}
-			
-		} else {
-			
-			Agent agent = this.environment().getAgentAt(newXPlace, newYPlace);
-			
-			// the new place is empty
-			if (agent == null) {
-				this.environment.setAgentAt(this.x, this.y, null);
-				this.environment.setAgentAt(newXPlace, newYPlace, this);
-			
-				this.x(newXPlace);
-				this.y(newYPlace);
-				
-			} else { // the new place isn't empty
+			this.environment.moveAgent(this, newXPlace, newYPlace);
 
-				this.reverseXDirection();
-				this.reverseYDirection();
-			}
+		} else { // the new place isn't empty
+
+			this.currentDirection.getDifferentRandomDirection();
 		}
+		
 	}
 	
 	private void reproduct() { ((Wator)this.environment).addPrey(); }
 	
+	public String getAge() { return this.nbCyles + ""; }
 	
 }

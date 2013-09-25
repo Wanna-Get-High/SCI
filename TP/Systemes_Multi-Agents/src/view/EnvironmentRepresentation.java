@@ -23,7 +23,6 @@ public class EnvironmentRepresentation extends JFrame implements Observer {
 
 	public EnvironmentRepresentation(MultiAgentSystem mas) {
 		this.mas = mas;
-		 
 		this.init();
 	}
 	

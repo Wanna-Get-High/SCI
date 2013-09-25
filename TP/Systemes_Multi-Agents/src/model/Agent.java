@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 
+
 /**
  * This is the agent class.<b>
  * <b>

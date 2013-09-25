@@ -1,13 +1,12 @@
 package core;
 
 import java.util.ArrayList;
-
 import view.EnvironmentRepresentation;
 
 import model.Agent;
 import model.Ball;
-import model.Particules;
 import model.Environment;
+import model.Particules;
 import model.MultiAgentSystem;
 import model.Predator;
 import model.Prey;
@@ -30,8 +29,11 @@ public class Simulation {
 	 */
 	public void usage() {
 		System.out.println("Usage :");
-		System.out.println("java "+this.getClass().getCanonicalName()+" <environment size> <number of agent> <number of turns> <delay between each turn>");
-		System.out.println();
+		System.out.println("\tfor the balls :");
+		System.out.println("\t\tjava "+this.getClass().getCanonicalName()+" -b <environment size> <nb agent> <nb turns> <delay between each turn>");
+		System.out.println("\tfor the prey - predator :");
+		System.out.println("\t\tjava "+this.getClass().getCanonicalName()+" -w <environment size> <nb fish> <nb shark> <prey breed> <predator breed> <starve delay> <number of turns> <delay between each turn>");
+		System.out.println("");
 	}
 	
 	public static void main(String[] args) {
@@ -118,7 +120,7 @@ public class Simulation {
 				// then we run the simulation
 				mas.run(nbTurn,delay);
 		} else {
-			//TODO : display usage
+			s.usage();
 		}
 	}
 }

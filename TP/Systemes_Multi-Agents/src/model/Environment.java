@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 /**
  * This class stock the Environment.
@@ -15,6 +17,9 @@ public abstract class Environment {
 	protected ArrayList<Agent> agentsToAdd;
 	
 	protected ArrayList<Agent> agentsToRemove;
+	
+	protected ArrayList<Integer> remainingIndexes;
+	
 	
 	/** 
 	  * The space in which the Agents will move and do actions.<b> 
@@ -31,8 +36,19 @@ public abstract class Environment {
 		
 		this.size = size;		
 		this.space = new Agent[size][size];
+		
+		this.remainingIndexes = new ArrayList<Integer>();
+		
+		this.initRemaningIndexes();
 	}
 	
+	
+	private void initRemaningIndexes() {
+		for (int i = 0; i < this.size*this.size; i++) {
+				this.remainingIndexes.add(i);
+		}
+	}
+
 	/**
 	 * This method search for a random place inside the space <b> 
 	 * and when it found one it saves the place for this agent.
@@ -41,20 +57,37 @@ public abstract class Environment {
 	 */
 	public void getPlace(Agent agent) {
 		
-		// get a random place until it is empty
-		int xPlace = (int) (Math.random()*(this.size-1));
-		int yPlace = (int) (Math.random()*(this.size-1));
-		
-		while(this.space[xPlace][yPlace] != null ) {
-			xPlace = (int) (Math.random()*(this.size-1));
-			yPlace = (int) (Math.random()*(this.size-1));
+		if (!this.remainingIndexes.isEmpty()) {
+			
+			// get a random empty place
+			Collections.shuffle(this.remainingIndexes);
+			
+			int value = this.remainingIndexes.get(0);
+			
+			Integer xPlace = this.getXfromValue(value);
+			Integer yPlace = this.getYfromValue(value);
+			
+			// set the place and index of the agent
+			agent.x(xPlace);
+			agent.y(yPlace);
+			
+			this.space[xPlace][yPlace] = agent;
+			
+			this.remainingIndexes.remove((Integer)value);
 		}
-		
-		// set the place of the agent and fill the place with it
-		agent.x(xPlace);
-		agent.y(yPlace);
-		
-		this.space[xPlace][yPlace] = agent;
+	}
+	
+	
+	private int getValueFrom(int x, int y) {
+		return x*this.size + y;
+	}
+	
+	private int getXfromValue(int value) {
+		return value / this.size;
+	}
+	
+	private int getYfromValue(int value) {
+		return value % this.size;
 	}
 	
 
@@ -69,6 +102,34 @@ public abstract class Environment {
 	 */
 	public int getSize() { return this.size; }
 
+	
+	public void removeAgent(Agent agent) {
+		
+		int x = agent.x();
+		int y = agent.y();
+		
+		this.remainingIndexes.add(this.getValueFrom(x, y));
+		
+		this.space[x][y] = null;
+	}
+	
+	public void addAgent(Agent agent) {
+		int x = agent.x();
+		int y = agent.y();
+
+		this.remainingIndexes.remove((Integer)this.getValueFrom(x, y));
+		
+		this.space[x][y] = agent;
+	}
+	
+	
+	public void moveAgent(Agent agent, int newXPlace, int newYPlace) {
+		this.removeAgent(agent);
+		agent.x(newXPlace);
+		agent.y(newYPlace);
+		this.addAgent(agent);
+	}
+
 	/**
 	 * Get the agent at the specified position in the space.
 	 * 
@@ -81,21 +142,6 @@ public abstract class Environment {
 		
 		return this.space[x][y]; 
 	}
-	
-	/**
-	 * Set the agent passed in parameters at the specified position.
-	 * 
-	 * @param x the x axis value
-	 * @param y the y axis value
-	 * @param agent the agent to be placed
-	 * @return if (x > this.size || y > this.size || x < 0 || y < 0) false else true.
-	 */
-	public boolean setAgentAt(int x, int y, Agent agent) {
-		if (x > this.size || y > this.size || x < 0 || y < 0) return false;
-		
-		this.space[x][y] = agent;
-		return true;
-	}
 
 	/**
 	 * Gets the space containing the agents
@@ -103,5 +149,4 @@ public abstract class Environment {
 	 * @return the space.
 	 */
 	public Agent[][] getAgents() { return this.space; }
-
 }

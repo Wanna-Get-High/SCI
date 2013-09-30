@@ -11,7 +11,7 @@ public class Direction {
 	}
 	
 	public Direction() {
-		this(0,0);
+		this.getRandomDirection();
 	}
 	
 	public void reverseDirections() {

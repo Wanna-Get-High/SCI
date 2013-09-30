@@ -19,27 +19,28 @@ public class Prey extends Agent {
 	
 	/** Number of cycles a prey must exist before reproducing */
 	private int breed;
-
-	public Prey(Environment env, int breed) {
+	
+	public Prey(Environment env, int breed, boolean getAPlace) {
 		super(env);
 		
 		this.color = Color.GREEN;
 		this.breed = breed;
-		this.nbCyles = 0;
+		this.nbCyles = 1;
 		this.type("PREY");
-		this.environment.getPlace(this);
 		this.currentDirection.getRandomDirection();
+		
+		if (getAPlace) this.environment.getPlace(this);
 	}
+	
 	
 	@Override
 	public void doAction() {
-		this.nbCyles++;
-
 		if(this.nbCyles % this.breed == 0) { 
 			this.reproduct();
 		}
 			
 		this.move();
+		this.nbCyles++;
 	}	
 	
 	/**
@@ -60,14 +61,16 @@ public class Prey extends Agent {
 		// the new place is empty
 		if (agent == null) {
 			
-			this.environment.moveAgent(this, newXPlace, newYPlace);
+			this.move(newXPlace, newYPlace);
 
 		} else { // the new place isn't empty
 
-			this.currentDirection.getDifferentRandomDirection();
+			this.reverseXDirection();
 		}
 		
 	}
+	
+	private void move(int newXPlace, int newYPlace) { ((Wator)(this.environment)).move(this, newXPlace, newYPlace); }
 	
 	private void reproduct() { ((Wator)this.environment).addPrey(); }
 	

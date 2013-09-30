@@ -21,62 +21,113 @@ public class Wator extends Environment {
 	private int predatorbreed;
 	private int starve;
 	
+	/**
+	 * this list contains the new born agent
+	 */
+	protected ArrayList<Agent> agentsToAdd;
+	
+	/**
+	 * this list contains the agents that are dead and has to be removed
+	 */
+	protected ArrayList<Agent> agentsToRemove;
+	
+	/**
+	 * 
+	 */
+	protected ArrayList<Agent> agentsToMove;
+	protected ArrayList<Agent> agentsToRemoveMove;
+	
+	
+	
 	public Wator(int size, int preybreed, int predatorbreed, int starve) {
 		super(size);
 		this.preybreed = preybreed;
 		this.predatorbreed = predatorbreed;
 		this.starve = starve;
+
+		this.agentsToAdd = new ArrayList<Agent>();
+		this.agentsToRemove = new ArrayList<Agent>();	
+		this.agentsToMove = new ArrayList<Agent>();
+		this.agentsToRemoveMove = new ArrayList<Agent>();
+		
 	}
 	
 	
 	@Override
 	public void addAgentsTo(ArrayList<Agent> agents) {
 		
-		if (agents.size() < this.getSize()*this.getSize()) {
-			agents.addAll(this.agentsToAdd);
+//		System.out.println("principale list : "+agents.size());
+//		System.out.println("add list : "+this.agentsToAdd.size());
+		
+		//System.out.println("to be added : ");
+		
+		for (Agent agent : this.agentsToMove) {
+			this.addAgent(agent);
+			//agents.add(agent);
 		}
+		
+		for (Agent agent : this.agentsToAdd) {
+			if(this.getPlace(agent)) {
+				agents.add(agent);
+			}
+		}
+	
 
+		System.out.println("agentsToMove : "+this.agentsToMove.size());
+		System.out.println("agentsToAdd : "+this.agentsToAdd.size());
+		
+//		System.out.println("list after : "+agents.size());
+		
 		this.agentsToAdd.clear();
+		this.agentsToMove.clear();
+		
 	}
 	
 	@Override
 	public void removeAgentsTo(ArrayList<Agent> agents) {
 
-		for (Agent agent : this.agentsToRemove) {
+//		System.out.println("principale list : "+agents.size());
+		System.out.println("agentsToRemove : "+this.agentsToRemove.size());
+		System.out.println("agentsToRemoveMove : "+this.agentsToRemoveMove.size());
+		
+		for (Agent agent : this.agentsToRemoveMove) {
 			this.removeAgent(agent);
 		}
 		
-		agents.removeAll(this.agentsToRemove);
+		for (Agent agent : this.agentsToRemove) {
+			this.removeAgent(agent);
+			agents.remove(agent);
+		}
+		
+//		System.out.println("list after : "+agents.size());
 		
 		this.agentsToRemove.clear();
+		this.agentsToRemoveMove.clear();
 	}
 	
 	
+	public void move(Agent agent, int newX, int newY) {
+		this.agentsToRemoveMove.add(agent);
+		//this.agentsToRemove.add(agent);
+		agent.x(newX);
+		agent.y(newY);
+		//this.agentsToAdd.add(agent);
+		this.agentsToMove.add(agent);
+	}
+	
 	public void addPrey() {
-		this.agentsToAdd.add(this.newPrey());
+		this.agentsToAdd.add(new Prey(this, this.preybreed, false));
 	}
 	
 	public void addPredator() {
-		this.agentsToAdd.add(this.newPredator());
+		this.agentsToAdd.add(new Predator(this, this.predatorbreed, this.starve, false));
 	}
 	
-	public void removePredator(Predator pred) {
-		this.agentsToRemove.add(pred);
+	public void AddToAgentsToRemove(Agent agent) {
+		this.agentsToRemove.add(agent);
 	}
 	
-	public void removePrey(Prey prey) {
-		this.agentsToRemove.add(prey);
-	}	
 	
-	private Prey newPrey() {
-		return new Prey(this, this.preybreed);
-	}
-	
-	private Predator newPredator() {
-		return new Predator(this, this.predatorbreed, this.starve);
-	}
-	
-
 	public String getNbPredPrey() {
 		int nbPred = 0;
 		int nbPrey = 0;

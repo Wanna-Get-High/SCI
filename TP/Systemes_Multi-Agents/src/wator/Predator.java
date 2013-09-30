@@ -28,17 +28,17 @@ public class Predator extends Agent {
 	
 	private int starve;
 	
-	public Predator(Environment env, int breed, int starve) {
+	public Predator(Environment env, int breed, int starve, boolean getAPlace) {
 		super(env);
 		
 		this.breed = breed;
 		this.starve = starve;
-		this.nbCyles = 0;
+		this.nbCyles = 1;
 		this.starveCyle = 0;
 		this.color = Color.RED;
 		this.type("PREDATOR");
-		this.environment.getPlace(this);
-		this.currentDirection.getRandomDirection();
+		
+		if (getAPlace) this.environment.getPlace(this);
 	}
 
 	/**
@@ -47,9 +47,8 @@ public class Predator extends Agent {
 	 * Decide what to do for this agent.
 	 */
 	public void doAction() {
-		
-		if (this.starveCyle == this.starve) { 
-			this.starveToDeath();
+		if (this.starveCyle >= this.starve) { 
+			this.kill(this);
 		} else {
 			
 			if(this.nbCyles % this.breed == 0) {
@@ -72,53 +71,36 @@ public class Predator extends Agent {
 		
 		int size = this.environment().getSize();
 		
-		//int newXPlace = (this.getXPlaceAfterMovement() + size) % size;
-		//int newYPlace = (this.getYPlaceAfterMovement() + size) % size;
+		int newXPlace = (this.getXPlaceAfterMovement() + size) % size;
+		int newYPlace = (this.getYPlaceAfterMovement() + size) % size;
 		
-		int newXPlace = this.getXPlaceAfterMovement();
-		int newYPlace = this.getXPlaceAfterMovement();
-
-		// encounter a wall
-		if (newXPlace >= size || newYPlace >= size || newXPlace < 0 || newYPlace < 0 ) {
-			if (newXPlace >= size || newXPlace < 0) {
-				this.reverseXDirection();
-			}
+		Agent agent = this.environment().getAgentAt(newXPlace, newYPlace);
+		
+		// the new place is empty
+		if (agent == null) {
 			
-			if (newYPlace >= size || newYPlace < 0) {
-				this.reverseYDirection();
-			}
+			//this.environment.moveAgent(this, newXPlace, newYPlace);
+			this.move(newXPlace, newYPlace);
 			
-		} else {
+		} else { // the new place isn't empty
 			
-			Agent agent = this.environment().getAgentAt(newXPlace, newYPlace);
-			
-			// the new place is empty
-			if (agent == null) {
-				
-				this.environment.moveAgent(this, newXPlace, newYPlace);
-				
-			} else { // the new place isn't empty
-				
-				if(agent.type().equals("PREY")) {
-						
-					this.starveCyle = 0;
-					this.kill((Prey)agent);
-
-					this.environment.moveAgent(this, newXPlace, newYPlace);
+			if(agent.type().equals("PREY")) {
 					
-				} else {
-					this.currentDirection.getDifferentRandomDirection();
-				}
+				this.starveCyle = 0;
+				this.kill(agent);
+				this.move(newXPlace, newYPlace);
+				
+			} else {
+				this.reverseXDirection();
 			}
 		}
 	}
-		
 	
-	private void kill(Prey prey) { ((Wator)(this.environment)).removePrey(prey);}
+	private void move(int newXPlace, int newYPlace) { ((Wator)(this.environment)).move(this, newXPlace, newYPlace); }
+	
+	private void kill(Agent agent) { ((Wator)(this.environment)).AddToAgentsToRemove(agent); }
 	
 	private void reproduct() { ((Wator)(this.environment)).addPredator(); }
-
-	private void starveToDeath() { ((Wator)(this.environment)).removePredator(this); }
 	
 	public String getAge() { return this.nbCyles + ""; }
 }

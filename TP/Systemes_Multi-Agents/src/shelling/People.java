@@ -74,8 +74,9 @@ public class People extends Agent {
 	}
 
 	private void move() {
-		this.environment().getAgents()[this.x][this.y]=null;
-		this.environment().getPlace(this);	
+		
+		this.environment.removeAgent(this);
+		this.environment.getPlace(this);
 	}
 	
 	public float satisfaction() { return this.satisfaction; }

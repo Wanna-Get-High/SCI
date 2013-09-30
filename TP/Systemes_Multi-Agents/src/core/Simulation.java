@@ -2,6 +2,7 @@ package core;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import particules.Ball;
 import particules.Particules;
@@ -41,6 +42,21 @@ public class Simulation {
 		System.out.println("");
 	}
 	
+//	public static void main(String[] args) {
+//		ArrayList<Integer> ai = new ArrayList<Integer>();
+//		
+//		for (int i = 0; i < 10; i++) {
+//			ai.add(i);
+//		}
+//		
+//		int a = 7;
+//		
+//		Collections.shuffle(ai);
+//		ai.remove((Integer)a);
+//
+//		System.out.println(ai);
+//	}
+	
 	public static void main(String[] args) {
 		
 		Simulation s = new Simulation();
@@ -57,7 +73,7 @@ public class Simulation {
 		int nbPeople = 0;
 		float threshold = 0;
 		
-		if(args[0].equals("-b")) {
+		if("-b".equals(args[0])) {
 			if (args.length < 4) {
 				s.usage();
 			} else {
@@ -94,7 +110,7 @@ public class Simulation {
 				// then we run the simulation
 				mas.run(nbTurn,delay);
 			} 
-		} else if(args[0].equals("-w")) {
+		} else if("-w".equals(args[0])) {
 			
 				try {
 					size = Integer.valueOf(args[1]);
@@ -115,8 +131,8 @@ public class Simulation {
 				
 				// we create the agents
 				ArrayList <Agent> agents = new ArrayList<Agent>();
-				for (int i=0; i < nfish; i++) agents.add(new Prey(wat,preybreed ));
-				for (int i=0; i < nsharks; i++) agents.add(new Predator(wat, predatorbreed, starve));
+				for (int i=0; i < nfish; i++) agents.add(new Prey(wat, preybreed, true));
+				for (int i=0; i < nsharks; i++) agents.add(new Predator(wat, predatorbreed, starve, true));
 				
 				// then we create the Model
 				MultiAgentSystem mas = new MultiAgentSystem(wat, agents);
@@ -127,7 +143,7 @@ public class Simulation {
 				// then we run the simulation
 				mas.run(nbTurn,delay);
 				
-		} else if(args[0].equals("-s")) {
+		} else if("-s".equals(args[0])) {
 			
 				try {
 					size = Integer.valueOf(args[1]);

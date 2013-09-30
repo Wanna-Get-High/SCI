@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import core.Agent;
 import core.Environment;
+import wator.Wator;
 
 
 /**
@@ -45,6 +46,10 @@ public class MultiAgentSystem extends Observable {
 
 		int i = 0;
 		
+		
+		//System.out.println(this.environment.getIndexesSize());
+		//System.out.println("==========================================");
+		
 		while (nbOfTurn == -1 || i < nbOfTurn) {
 		
 			// shuffle the collection of agent (for more "equality")
@@ -53,9 +58,18 @@ public class MultiAgentSystem extends Observable {
 			for (Agent agent : this.agents) agent.doAction();
 			
 			this.environment.removeAgentsTo(this.agents);
+			this.setChanged();
+			this.notifyObservers();
+			
 			this.environment.addAgentsTo(this.agents);
 			this.environment.writeData();
-
+			
+			//System.out.println(((Wator)this.environment).getNbPredPrey());
+			System.out.println(this.agents.size() + "    " + this.environment.getIndexesSize());
+			System.out.println("===========================");
+			//System.out.println();
+			
+			
 			// telling that this model has changed
 			// then notify its views
 			this.setChanged();

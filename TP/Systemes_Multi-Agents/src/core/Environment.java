@@ -22,15 +22,7 @@ public abstract class Environment {
 	/** The size of the space */
 	private int size;
 	
-	/**
-	 * this list contains the new born agent
-	 */
-	protected ArrayList<Agent> agentsToAdd;
-	
-	/**
-	 * this list contains the agents that are dead and has to be removed
-	 */
-	protected ArrayList<Agent> agentsToRemove;
+
 	
 	/**
 	 * The remaining empty cell of the space. <b>
@@ -56,9 +48,7 @@ public abstract class Environment {
 	public Environment(int size) {
 		this.size = size;		
 		this.space = new Agent[size][size];
-	
-		this.agentsToAdd = new ArrayList<Agent>();
-		this.agentsToRemove = new ArrayList<Agent>();		
+		
 		this.remainingIndexes = new ArrayList<Integer>();
 		this.initRemaningIndexes();
 	}
@@ -97,26 +87,67 @@ public abstract class Environment {
 	 * 
 	 * @param agent the agent that will be put inside a cell.
 	 */
-	public void getPlace(Agent agent) {
+	public boolean getPlace(Agent agent) {
 		
-		if (!this.remainingIndexes.isEmpty()) {
+		// get a random place until it is empty
+//		int xPlace = (int) (Math.random()*(this.size-1));
+//		int yPlace = (int) (Math.random()*(this.size-1));
+//		
+//		while(this.space[xPlace][yPlace] != null ) {
+//			xPlace = (int) (Math.random()*(this.size-1));
+//			yPlace = (int) (Math.random()*(this.size-1));
+//		}
+		
+		
+		// set the place of the agent and fill the place with it
+		//agent.x(xPlace);
+		//agent.y(yPlace);
+		
+		//this.space[xPlace][yPlace] = agent;
+		
+//		for (int i = 0; i < this.size; i++) {
+//		for (int j = 0; j < this.size; j++) {
+//			if (this.space[i][j] == null) {
+//				agent.x(i);
+//				agent.y(j);
+//				this.space[i][j] = agent;
+//				return;
+//			}
+//		}
+//	}
+		
+		
+		if (this.remainingIndexes.isEmpty()) return false;
 			
 			// get a random empty place
 			Collections.shuffle(this.remainingIndexes);
 			
-			int value = this.remainingIndexes.get(0);
+		//	System.out.println(this.remainingIndexes.size());
 			
-			Integer xPlace = this.getXfromValue(value);
-			Integer yPlace = this.getYfromValue(value);
+//			System.out.println("==================================");
+			
+			int value = this.remainingIndexes.get(0);
+//			System.out.println("value = "+value);
+			
+			int xPlace = this.getXfromValue(value);
+			int yPlace = this.getYfromValue(value);
+			
+//			System.out.println("x = "+xPlace);
+//			System.out.println("y = "+yPlace);
+			
+//			System.out.println("calculated value = "+this.getValueFrom(xPlace, yPlace));
+			
 			
 			// set the place and index of the agent
 			agent.x(xPlace);
 			agent.y(yPlace);
 			
 			this.space[xPlace][yPlace] = agent;
-			
 			this.remainingIndexes.remove((Integer)value);
-		}
+			
+//			System.out.println("contained : "+);
+//			System.out.println("can get the removed item : "+this.remainingIndexes.contains((Integer)value));
+		return true;
 	}
 	
 	/**
@@ -129,7 +160,10 @@ public abstract class Environment {
 		int x = agent.x();
 		int y = agent.y();
 		
+//		System.out.println("=====================================================");
+//		System.out.println("before : "+this.remainingIndexes.size());
 		this.remainingIndexes.add(this.getValueFrom(x, y));
+//		System.out.println("after : "+this.remainingIndexes.size());
 		
 		this.space[x][y] = null;
 	}
@@ -138,14 +172,23 @@ public abstract class Environment {
 	 * Add an agent to the space and remove its position to the remainingIndexes.
 	 * 
 	 * @param agent the agent to be added
+	 * @return true if it has added the agent to the environment
 	 */
-	public void addAgent(Agent agent) {
+	public boolean addAgent(Agent agent) {
+		if (this.remainingIndexes.isEmpty()) return false;
+		
 		int x = agent.x();
 		int y = agent.y();
-
+		
+		//System.out.println("=====================================================");
+		//System.out.println("before : "+this.remainingIndexes.size());
 		this.remainingIndexes.remove((Integer)this.getValueFrom(x, y));
+		//System.out.println(b);
+		//System.out.println("after : "+this.remainingIndexes.size());
 		
 		this.space[x][y] = agent;
+		
+		return true;
 	}
 	
 	/**
@@ -223,5 +266,9 @@ public abstract class Environment {
 	 */
 	private int getYfromValue(int value) {
 		return value % this.size;
+	}
+
+	public int getIndexesSize() {
+		return this.remainingIndexes.size();
 	}
 }

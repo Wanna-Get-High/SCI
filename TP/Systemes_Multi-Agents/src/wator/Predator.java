@@ -1,6 +1,7 @@
 package wator;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import core.Agent;
 import core.Environment;
@@ -79,16 +80,21 @@ public class Predator extends Agent {
 		// the new place is empty
 		if (agent == null) {
 			
-			//this.environment.moveAgent(this, newXPlace, newYPlace);
-			this.move(newXPlace, newYPlace);
+			this.environment.moveAgent(this, newXPlace, newYPlace);
+			this.addToNextGeneration(this);
+			
 			
 		} else { // the new place isn't empty
 			
 			if(agent.type().equals("PREY")) {
-					
+				
+				//Prey prey = ((Prey)agent);
+				this.removePrey((Prey)agent);
+
+				this.environment.moveAgent(this, newXPlace, newYPlace);
+				this.addToNextGeneration(this);
+				
 				this.starveCyle = 0;
-				this.kill(agent);
-				this.move(newXPlace, newYPlace);
 				
 			} else {
 				this.reverseXDirection();
@@ -96,9 +102,27 @@ public class Predator extends Agent {
 		}
 	}
 	
-	private void move(int newXPlace, int newYPlace) { ((Wator)(this.environment)).move(this, newXPlace, newYPlace); }
+	private void removePrey(Prey prey) {
+		//ArrayList<Agent> list = ;
+		int index = ((Wator)(this.environment)).agentsToAdd.indexOf(prey);
+		
+		if (index != -1 ) {
+			Agent agent = ((Wator)(this.environment)).agentsToAdd.get(index);
+			this.kill(agent);
+			((Wator)(this.environment)).agentsToAdd.remove(index);
+		} else {
+			prey.isDead();
+		}
+		
+		this.kill(prey);
+		
+	} 
 	
-	private void kill(Agent agent) { ((Wator)(this.environment)).AddToAgentsToRemove(agent); }
+	
+	
+	private void addToNextGeneration(Agent agent) { ((Wator)(this.environment)).addToNextGeneration(this); }
+	
+	private void kill(Agent agent) { ((Wator)(this.environment)).freeAgent(agent); }
 	
 	private void reproduct() { ((Wator)(this.environment)).addPredator(); }
 	

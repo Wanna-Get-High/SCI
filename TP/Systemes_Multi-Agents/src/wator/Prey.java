@@ -20,9 +20,12 @@ public class Prey extends Agent {
 	/** Number of cycles a prey must exist before reproducing */
 	private int breed;
 	
+	private boolean isDead;
+	
 	public Prey(Environment env, int breed, boolean getAPlace) {
 		super(env);
 		
+		this.isDead = false;
 		this.color = Color.GREEN;
 		this.breed = breed;
 		this.nbCyles = 1;
@@ -35,12 +38,17 @@ public class Prey extends Agent {
 	
 	@Override
 	public void doAction() {
-		if(this.nbCyles % this.breed == 0) { 
-			this.reproduct();
-		}
+		if(!this.isDead) { 
+			if(this.nbCyles % this.breed == 0) { 
+				this.reproduct();
+			}
 			
-		this.move();
-		this.nbCyles++;
+			this.move();
+			
+			
+			
+			this.nbCyles++;
+		}
 	}	
 	
 	/**
@@ -61,19 +69,26 @@ public class Prey extends Agent {
 		// the new place is empty
 		if (agent == null) {
 			
-			this.move(newXPlace, newYPlace);
+			this.environment.moveAgent(this,newXPlace, newYPlace);
 
 		} else { // the new place isn't empty
 
 			this.reverseXDirection();
 		}
 		
+		this.addToNextGeneration();
 	}
 	
-	private void move(int newXPlace, int newYPlace) { ((Wator)(this.environment)).move(this, newXPlace, newYPlace); }
+	private void addToNextGeneration() { ((Wator)(this.environment)).addToNextGeneration(this); }
 	
 	private void reproduct() { ((Wator)this.environment).addPrey(); }
 	
 	public String getAge() { return this.nbCyles + ""; }
+
+
+	public void isDead() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

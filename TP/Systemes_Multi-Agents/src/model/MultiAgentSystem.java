@@ -57,18 +57,13 @@ public class MultiAgentSystem extends Observable {
 			
 			for (Agent agent : this.agents) agent.doAction();
 			
-			this.environment.removeAgentsTo(this.agents);
-			this.setChanged();
-			this.notifyObservers();
-			
+			this.environment.removeAgentsTo(this.agents);			
 			this.environment.addAgentsTo(this.agents);
 			this.environment.writeData();
 			
 			//System.out.println(((Wator)this.environment).getNbPredPrey());
 			System.out.println(this.agents.size() + "    " + this.environment.getIndexesSize());
 			System.out.println("===========================");
-			//System.out.println();
-			
 			
 			// telling that this model has changed
 			// then notify its views

@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 
 /**
@@ -87,67 +88,55 @@ public abstract class Environment {
 	 * 
 	 * @param agent the agent that will be put inside a cell.
 	 */
-	public boolean getPlace(Agent agent) {
-		
-		// get a random place until it is empty
-//		int xPlace = (int) (Math.random()*(this.size-1));
-//		int yPlace = (int) (Math.random()*(this.size-1));
+	public void getPlace(Agent agent) {
+//		Random random = new Random();
+//		
+//		// get a random place until it is empty
+//		int xPlace = random.nextInt(this.size);
+//		int yPlace = random.nextInt(this.size);
 //		
 //		while(this.space[xPlace][yPlace] != null ) {
-//			xPlace = (int) (Math.random()*(this.size-1));
-//			yPlace = (int) (Math.random()*(this.size-1));
+//			xPlace = random.nextInt(this.size);
+//			yPlace = random.nextInt(this.size);
 //		}
+//		
+//		agent.x(xPlace);
+//		agent.y(yPlace);
+//		
+//		this.space[xPlace][yPlace] = agent;
+//		
 		
-		
-		// set the place of the agent and fill the place with it
-		//agent.x(xPlace);
-		//agent.y(yPlace);
-		
-		//this.space[xPlace][yPlace] = agent;
-		
-//		for (int i = 0; i < this.size; i++) {
-//		for (int j = 0; j < this.size; j++) {
-//			if (this.space[i][j] == null) {
-//				agent.x(i);
-//				agent.y(j);
-//				this.space[i][j] = agent;
-//				return;
-//			}
-//		}
-//	}
-		
-		
-		if (this.remainingIndexes.isEmpty()) return false;
-			
-			// get a random empty place
-			Collections.shuffle(this.remainingIndexes);
-			
-		//	System.out.println(this.remainingIndexes.size());
-			
-//			System.out.println("==================================");
-			
-			int value = this.remainingIndexes.get(0);
-//			System.out.println("value = "+value);
-			
-			int xPlace = this.getXfromValue(value);
-			int yPlace = this.getYfromValue(value);
-			
-//			System.out.println("x = "+xPlace);
-//			System.out.println("y = "+yPlace);
-			
-//			System.out.println("calculated value = "+this.getValueFrom(xPlace, yPlace));
-			
-			
-			// set the place and index of the agent
-			agent.x(xPlace);
-			agent.y(yPlace);
-			
-			this.space[xPlace][yPlace] = agent;
-			this.remainingIndexes.remove((Integer)value);
-			
-//			System.out.println("contained : "+);
-//			System.out.println("can get the removed item : "+this.remainingIndexes.contains((Integer)value));
-		return true;
+//		if (this.remainingIndexes.isEmpty()) return false;
+//			
+//			// get a random empty place
+//			Collections.shuffle(this.remainingIndexes);
+//			
+//		//	System.out.println(this.remainingIndexes.size());
+//			
+////			System.out.println("==================================");
+//			
+//			int value = this.remainingIndexes.get(0);
+////			System.out.println("value = "+value);
+//			
+//			int xPlace = this.getXfromValue(value);
+//			int yPlace = this.getYfromValue(value);
+//			
+////			System.out.println("x = "+xPlace);
+////			System.out.println("y = "+yPlace);
+//			
+////			System.out.println("calculated value = "+this.getValueFrom(xPlace, yPlace));
+//			
+//			
+//			// set the place and index of the agent
+//			agent.x(xPlace);
+//			agent.y(yPlace);
+//			
+//			this.space[xPlace][yPlace] = agent;
+//			this.remainingIndexes.remove((Integer)value);
+//			
+////			System.out.println("contained : "+);
+////			System.out.println("can get the removed item : "+this.remainingIndexes.contains((Integer)value));
+//		return true;
 	}
 	
 	/**
@@ -162,10 +151,11 @@ public abstract class Environment {
 		
 //		System.out.println("=====================================================");
 //		System.out.println("before : "+this.remainingIndexes.size());
-		this.remainingIndexes.add(this.getValueFrom(x, y));
+		//this.remainingIndexes.add(this.getValueFrom(x, y));
 //		System.out.println("after : "+this.remainingIndexes.size());
 		
 		this.space[x][y] = null;
+
 	}
 	
 	/**
@@ -175,14 +165,14 @@ public abstract class Environment {
 	 * @return true if it has added the agent to the environment
 	 */
 	public boolean addAgent(Agent agent) {
-		if (this.remainingIndexes.isEmpty()) return false;
+		//if (this.remainingIndexes.isEmpty()) return false;
 		
 		int x = agent.x();
 		int y = agent.y();
 		
 		//System.out.println("=====================================================");
 		//System.out.println("before : "+this.remainingIndexes.size());
-		this.remainingIndexes.remove((Integer)this.getValueFrom(x, y));
+		//this.remainingIndexes.remove((Integer)this.getValueFrom(x, y));
 		//System.out.println(b);
 		//System.out.println("after : "+this.remainingIndexes.size());
 		

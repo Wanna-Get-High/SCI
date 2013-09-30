@@ -36,6 +36,7 @@ public class Wator extends Environment {
 	 */
 	protected ArrayList<Agent> agentsToMove;
 	protected ArrayList<Agent> agentsToRemoveMove;
+
 	
 	
 	
@@ -61,25 +62,27 @@ public class Wator extends Environment {
 		
 		//System.out.println("to be added : ");
 		
-		for (Agent agent : this.agentsToMove) {
-			this.addAgent(agent);
-			//agents.add(agent);
-		}
+//		for (Agent agent : this.agentsToMove) {
+//			this.addAgent(agent);
+//			//agents.add(agent);
+//		}
 		
-		for (Agent agent : this.agentsToAdd) {
-			if(this.getPlace(agent)) {
-				agents.add(agent);
-			}
-		}
-	
+//		for (Agent agent : this.agentsToAdd) {
+//			if(this.getPlace(agent)) {
+//				agents.add(agent);
+//			}
+//		}
+		agents.clear();
+		agents.addAll(this.agentsToAdd);
+		
+		
 
-		System.out.println("agentsToMove : "+this.agentsToMove.size());
-		System.out.println("agentsToAdd : "+this.agentsToAdd.size());
+		//System.out.println("agentsToMove : "+this.agentsToMove.size());
+		//System.out.println("agentsToAdd : "+this.agentsToAdd.size());
 		
 //		System.out.println("list after : "+agents.size());
 		
 		this.agentsToAdd.clear();
-		this.agentsToMove.clear();
 		
 	}
 	
@@ -90,9 +93,9 @@ public class Wator extends Environment {
 		System.out.println("agentsToRemove : "+this.agentsToRemove.size());
 		System.out.println("agentsToRemoveMove : "+this.agentsToRemoveMove.size());
 		
-		for (Agent agent : this.agentsToRemoveMove) {
-			this.removeAgent(agent);
-		}
+//		for (Agent agent : this.agentsToRemoveMove) {
+//			this.removeAgent(agent);
+//		}
 		
 		for (Agent agent : this.agentsToRemove) {
 			this.removeAgent(agent);
@@ -105,26 +108,22 @@ public class Wator extends Environment {
 		this.agentsToRemoveMove.clear();
 	}
 	
-	
-	public void move(Agent agent, int newX, int newY) {
-		this.agentsToRemoveMove.add(agent);
-		//this.agentsToRemove.add(agent);
-		agent.x(newX);
-		agent.y(newY);
-		//this.agentsToAdd.add(agent);
-		this.agentsToMove.add(agent);
+
+	public void addToNextGeneration(Agent agent) {
+
+		this.agentsToAdd.add(agent);
 	}
 	
 	public void addPrey() {
-		this.agentsToAdd.add(new Prey(this, this.preybreed, false));
+		this.agentsToAdd.add(new Prey(this, this.preybreed, true));
 	}
 	
 	public void addPredator() {
-		this.agentsToAdd.add(new Predator(this, this.predatorbreed, this.starve, false));
+		this.agentsToAdd.add(new Predator(this, this.predatorbreed, this.starve, true));
 	}
 	
-	public void AddToAgentsToRemove(Agent agent) {
-		this.agentsToRemove.add(agent);
+	public void freeAgent(Agent agent) {
+		this.removeAgent(agent);
 	}
 	
 	

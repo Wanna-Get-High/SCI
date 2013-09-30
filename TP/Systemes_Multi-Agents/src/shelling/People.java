@@ -73,8 +73,7 @@ public class People extends Agent {
 		}
 	}
 
-	private void move() {
-		
+	private void move() {		
 		this.environment.removeAgent(this);
 		this.environment.getPlace(this);
 	}

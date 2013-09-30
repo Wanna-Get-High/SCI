@@ -3,6 +3,10 @@ package core;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+
+import fiveormore.Plan;
+import fiveormore.Token;
 
 import particules.Ball;
 import particules.Particules;
@@ -176,7 +180,33 @@ public class Simulation {
 				// then we run the simulation
 				mas.run(nbTurn,delay);
 				
-		}else {
+		} else if("-f".equals(args[0])) {
+			
+			try {	
+			} catch (NumberFormatException e) {
+				System.out.println("the arguments has to be integers");
+				System.exit(-1);
+			}
+			
+			// we create the environment
+			Plan pla = new Plan(9);
+			
+			// we create the agents
+			ArrayList <Agent> agents = new ArrayList<Agent>();
+			Random rand = new Random();
+			for (int i=0; i < 3; i++)
+					agents.add(new Token(pla,pla.colors()[rand.nextInt(7)]));
+					
+			// then we create the Model
+			MultiAgentSystem mas = new MultiAgentSystem(pla, agents);
+			
+			// we create the view
+			new EnvironmentRepresentation(mas);
+			
+			// then we run the simulation
+			mas.run(nbTurn,delay);
+			
+	}else {
 			s.usage();
 		}
 	}

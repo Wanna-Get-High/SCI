@@ -4,7 +4,8 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
 
-import model.MultiAgentSystem;
+import core.MultiAgentSystem;
+
 
 /**
  * This class is the view of the MVC.<b>
@@ -21,15 +22,15 @@ public class EnvironmentRepresentation extends JFrame implements Observer {
 	/** The model containing the data */
 	protected MultiAgentSystem mas;
 
-	public EnvironmentRepresentation(MultiAgentSystem mas) {
+	public EnvironmentRepresentation(MultiAgentSystem mas, DrawingPanel panel) {
 		this.mas = mas;
-		this.init();
+		this.init(panel);
 	}
 	
 	/**
 	 * Initialize the view and add the this class as an observer of the model Sma. 
 	 */
-	protected void init() {
+	protected void init(DrawingPanel panel) {
 		
 		// subscribe to the model 
 		this.mas.addObserver(this);
@@ -37,7 +38,7 @@ public class EnvironmentRepresentation extends JFrame implements Observer {
 		this.setSize(500,500);
 		
 		// add the panel that draw the balls to this JFrame
-		this.add(new DrawingPanel(this.mas.getEnvironment().getAgents()));
+		this.add(panel);
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

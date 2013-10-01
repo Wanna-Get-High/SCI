@@ -2,18 +2,25 @@ package core;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Collections;
+
+import fiveormore.Player;
+import fiveormore.MAS_FiveOrMore;
+import fiveormore.Plan;
+import fiveormore.Token;
 
 import particules.Ball;
+import particules.MAS_Particules;
 import particules.Particules;
+import shelling.MAS_Schelling;
 import shelling.People;
 import shelling.Schelling;
+import view.DrawingPanel;
 import view.EnvironmentRepresentation;
+import wator.MAS_Wator;
 import wator.Predator;
 import wator.Prey;
 import wator.Wator;
 
-import model.MultiAgentSystem;
 
 /**
  * The main class. <b>
@@ -45,16 +52,11 @@ public class Simulation {
 //	public static void main(String[] args) {
 //		ArrayList<Integer> ai = new ArrayList<Integer>();
 //		
-//		for (int i = 0; i < 10; i++) {
-//			ai.add(i);
-//		}
+//		Integer[] p = new Integer[2];
+//		int neighborStep[][] = { {-1,-1}, {-1,1}, {-1,0}, {0,1}, {0,-1}, {1,-1}, {1,1}, {1,0}};
 //		
-//		int a = 7;
-//		
-//		Collections.shuffle(ai);
-//		ai.remove((Integer)a);
-//
-//		System.out.println(ai);
+//		for (int i = 0; i < neighborStep.length; i++)
+//			System.out.println(neighborStep[i][0]+ " "+ neighborStep[i][1]);
 //	}
 	
 	public static void main(String[] args) {
@@ -77,7 +79,7 @@ public class Simulation {
 			if (args.length < 4) {
 				s.usage();
 			} else {
-				
+				// we retrieve the needed arguments
 				try {
 					size = Integer.valueOf(args[1]);
 					nbAgent = Integer.valueOf(args[2]);
@@ -102,16 +104,20 @@ public class Simulation {
 				for (int i = 0; i < nbAgent; i++) agents.add(new Ball(env));
 				
 				// then we create the Model
-				MultiAgentSystem mas = new MultiAgentSystem(env, agents);
+				MultiAgentSystem mas = new MAS_Particules(env, agents);
 				
 				// we create the view
-				new EnvironmentRepresentation(mas);
+				DrawingPanel panel = new DrawingPanel(mas.getEnvironment().getAgentsSpace(), false, false);
+				new EnvironmentRepresentation(mas, panel);
 				
 				// then we run the simulation
 				mas.run(nbTurn,delay);
 			} 
 		} else if("-w".equals(args[0])) {
-			
+			if (args.length < 8) {
+				s.usage();
+			} else {
+				// we retrieve the needed arguments
 				try {
 					size = Integer.valueOf(args[1]);
 					nfish = Integer.valueOf(args[2]);
@@ -135,16 +141,20 @@ public class Simulation {
 				for (int i=0; i < nsharks; i++) agents.add(new Predator(wat, predatorbreed, starve, true));
 				
 				// then we create the Model
-				MultiAgentSystem mas = new MultiAgentSystem(wat, agents);
+				MultiAgentSystem mas = new MAS_Wator(wat, agents);
 				
 				// we create the view
-				new EnvironmentRepresentation(mas);
+				DrawingPanel panel = new DrawingPanel(mas.getEnvironment().getAgentsSpace(), false, false);
+				new EnvironmentRepresentation(mas, panel);
 				
 				// then we run the simulation
 				mas.run(nbTurn,delay);
-				
+			}
 		} else if("-s".equals(args[0])) {
-			
+			if (args.length < 5) {
+				s.usage();
+			} else {
+				// we retrieve the needed arguments
 				try {
 					size = Integer.valueOf(args[1]);
 					nbPeople = Integer.valueOf(args[2]);	
@@ -152,7 +162,7 @@ public class Simulation {
 					nbTurn = Integer.valueOf(args[4]);
 					delay = Integer.valueOf(args[5]);
 				} catch (NumberFormatException e) {
-					System.out.println("the arguments has to be integers");
+					System.out.println("the arguments has to be integers except the 3rd one that is a float");
 					System.exit(-1);
 				}
 				
@@ -161,22 +171,54 @@ public class Simulation {
 				
 				// we create the agents
 				ArrayList <Agent> agents = new ArrayList<Agent>();
-				for (int i=0; i < nbPeople; i++) 
-					if(i%2 == 0)
-						agents.add(new People(sch,Color.BLUE,threshold));
-					else
-						agents.add(new People(sch,Color.YELLOW,threshold));
-						
+				for (int i=0; i < nbPeople; i++) {
+					if(i%2 == 0) 	agents.add(new People(sch,Color.BLUE,threshold));
+					else 			agents.add(new People(sch,Color.YELLOW,threshold));
+				}
+				
 				// then we create the Model
-				MultiAgentSystem mas = new MultiAgentSystem(sch, agents);
+				MultiAgentSystem mas = new MAS_Schelling(sch, agents);
 				
 				// we create the view
-				new EnvironmentRepresentation(mas);
+				DrawingPanel panel = new DrawingPanel(mas.getEnvironment().getAgentsSpace(), false, false);
+				new EnvironmentRepresentation(mas, panel);
 				
 				// then we run the simulation
 				mas.run(nbTurn,delay);
+			}
+		} else if("-f".equals(args[0])) {
+			if (args.length < 3) {
+				s.usage();
+			} else {
+				// we retrieve the needed arguments
+				try {
+					nbTurn = Integer.valueOf(args[1]);
+					delay = Integer.valueOf(args[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("the arguments has to be integers");
+					System.exit(-1);
+				}
 				
-		}else {
+				// we create the environment
+				Plan plan = new Plan(9);
+				
+				// we create the agents
+				ArrayList <Agent> agents = new ArrayList<Agent>();
+				for (int i=0; i < 3; i++) {
+					agents.add(new Token(plan,plan.getRandomColor(),true));
+				}
+				
+				// then we create the Model
+				MultiAgentSystem mas = new MAS_FiveOrMore(plan, agents, new Player(plan));
+				
+				// we create the view
+				DrawingPanel panel = new DrawingPanel(mas.getEnvironment().getAgentsSpace(), true, true);
+				new EnvironmentRepresentation(mas, panel);
+				
+				// then we run the simulation
+				mas.run(nbTurn,delay);
+			}
+	}else {
 			s.usage();
 		}
 	}

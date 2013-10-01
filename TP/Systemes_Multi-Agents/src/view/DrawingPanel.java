@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
@@ -21,10 +22,15 @@ public class DrawingPanel extends JPanel {
 	private static final long serialVersionUID = -4236374735008339909L;
 	
 	/** The The space in which the Agents will move and do actions. */
-	private Agent[][] space;
+	protected Agent[][] space;
 	
-	public DrawingPanel(Agent[][] space) {
+	private boolean drawLines;
+	private boolean drawAxis;
+	
+	public DrawingPanel(Agent[][] space, boolean drawLines, boolean drawAxis) {
 		this.space = space;
+		this.drawLines = drawLines;
+		this.drawAxis = drawAxis;
 	}
 
 	/**
@@ -33,17 +39,49 @@ public class DrawingPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		int size = space.length;
+		int step = 0;
+		
+		if (this.drawAxis) step = 1;
+		
+		int size = space.length+step;
 
 		float widthFactor = this.getWidth()/size;
 		float heightFactor = this.getHeight()/size;
 		
-		for(int x=0; x< size; x++) {
-			for(int y=0; y < size; y++) {
-				
-				if(space[x][y]!=null) {
-					g.setColor(space[x][y].color());
-					g.fillOval((int)(x*widthFactor), (int)(y*heightFactor), (int)widthFactor, (int)heightFactor);
+		
+		if (this.drawAxis) {
+			g.setColor(Color.black);
+			g.drawLine(0, 0, (int)(widthFactor) , (int)(heightFactor));
+			g.drawString("X", (int)(widthFactor/2-widthFactor/4), (int)(heightFactor/2+heightFactor/4));
+			g.drawString("Y", (int)(widthFactor/2+widthFactor/6), (int)(heightFactor/2));
+			
+			for (int i = 1; i < size; i++) {
+				g.drawString(i-1+"",(int)(i*widthFactor+widthFactor/2), (int)(heightFactor/2) );
+				g.drawString(i-1+"",(int)(widthFactor/2), (int)(i*heightFactor+heightFactor/2) );
+			}
+		}
+		
+		
+		if (this.drawLines) {
+			g.setColor(Color.black);
+			
+			// horizontal Lines
+			for (int i = 1; i < size; i++ ) {
+				g.drawLine(0, (int)(i*heightFactor), this.getWidth(), (int)(i*heightFactor));
+			}
+			
+			// vertical lines
+			for (int i = 1; i < size; i++) {
+				g.drawLine((int)(i*widthFactor), 0, (int)(i*widthFactor), this.getHeight());
+			}
+		}
+		
+		for(int x=step; x< size; x++) {
+			for(int y=step; y < size; y++) {
+				if(space[x-step][y-step]!=null) {
+					g.setColor(space[x-step][y-step].color());
+					g.fillOval((int)(y*widthFactor), (int)(x*heightFactor), (int)widthFactor, (int)heightFactor);
+					
 				}
 			}
 		}

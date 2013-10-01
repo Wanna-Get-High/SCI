@@ -2,7 +2,6 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 
 /**
@@ -13,7 +12,7 @@ import java.util.Random;
  * 
  * @author Francois Lepan - Alexis Linke
  */
-public abstract class Environment {	
+public class Environment {	
 	/** 
 	  * The space in which the Agents will move and do actions.<b> 
 	  * It is a square depending on the variable size entered at the creation of this class.  
@@ -21,66 +20,13 @@ public abstract class Environment {
 	private Agent[][] space;
 	
 	/** The size of the space */
-	private int size;
-	
-
-	
-	/**
-	 * The remaining empty cell of the space. <b>
-	 * <b>
-	 * The indexes stored in this ArrayList comes from the Agent space.<b>
-	 * <b>
-	 * Example : if the size is 3 the space look like that<b> 
-	 * [0, 1, 2] <b>
-	 * [3, 4, 5] <b>
-	 * [6, 7, 8] <b>
-	 * <b>
-	 * to retrieve the middle value (index 4) i need to do these calculations :<b>
-	 * <b>
-	 * row -> x = 4 / size <b>
-	 * col -> y = 4 % size <b>
-	 * <b>
-	 * And if we want to get the index from the position of x and y : <b>
-	 * index = x*size + y 
-	 */
-	protected ArrayList<Integer> remainingIndexes;
-	
+	protected int size;
 	
 	public Environment(int size) {
 		this.size = size;		
 		this.space = new Agent[size][size];
-		
-		this.remainingIndexes = new ArrayList<Integer>();
-		this.initRemaningIndexes();
-	}
-	
-	/**
-	 * Initialize the remainingIndexes ArrayList
-	 */
-	private void initRemaningIndexes() {
-		for (int i = 0; i < this.size*this.size; i++) {
-				this.remainingIndexes.add(i);
-		}
-	}
 
-	/**
-	 * The method that add the new born agent to the global ArrayList containing the agent
-	 * 
-	 * @param agents the global ArrayList
-	 */
-	public abstract void addAgentsTo(ArrayList<Agent> agents);
-	
-	/**
-	 * The method that remove the dead agent from the global ArrayList containing the agent
-	 * 
-	 * @param agents the global ArrayList
-	 */
-	public abstract void removeAgentsTo(ArrayList<Agent> agents);
-	
-	/**
-	 * write datas to a file
-	 */
-	public abstract void writeData();
+	}
 	
 	/**
 	 * This method search for a random place inside the space <b> 
@@ -88,55 +34,32 @@ public abstract class Environment {
 	 * 
 	 * @param agent the agent that will be put inside a cell.
 	 */
-	public void getPlace(Agent agent) {
-//		Random random = new Random();
-//		
-//		// get a random place until it is empty
-//		int xPlace = random.nextInt(this.size);
-//		int yPlace = random.nextInt(this.size);
-//		
-//		while(this.space[xPlace][yPlace] != null ) {
-//			xPlace = random.nextInt(this.size);
-//			yPlace = random.nextInt(this.size);
-//		}
-//		
-//		agent.x(xPlace);
-//		agent.y(yPlace);
-//		
-//		this.space[xPlace][yPlace] = agent;
-//		
+	public boolean getPlace(Agent agent) {
 		
-//		if (this.remainingIndexes.isEmpty()) return false;
-//			
-//			// get a random empty place
-//			Collections.shuffle(this.remainingIndexes);
-//			
-//		//	System.out.println(this.remainingIndexes.size());
-//			
-////			System.out.println("==================================");
-//			
-//			int value = this.remainingIndexes.get(0);
-////			System.out.println("value = "+value);
-//			
-//			int xPlace = this.getXfromValue(value);
-//			int yPlace = this.getYfromValue(value);
-//			
-////			System.out.println("x = "+xPlace);
-////			System.out.println("y = "+yPlace);
-//			
-////			System.out.println("calculated value = "+this.getValueFrom(xPlace, yPlace));
-//			
-//			
-//			// set the place and index of the agent
-//			agent.x(xPlace);
-//			agent.y(yPlace);
-//			
-//			this.space[xPlace][yPlace] = agent;
-//			this.remainingIndexes.remove((Integer)value);
-//			
-////			System.out.println("contained : "+);
-////			System.out.println("can get the removed item : "+this.remainingIndexes.contains((Integer)value));
-//		return true;
+		ArrayList<Integer> freeIndexes = new ArrayList<Integer>();
+		
+		for (int i = 0; i < this.size; i++) {
+			for (int j = 0; j < this.size; j++) {
+				if (this.space[i][j] == null) {
+					freeIndexes.add(this.getValueFrom(i, j));
+				}
+			}
+		}
+		
+		if (freeIndexes.isEmpty()) return false;
+		
+		Collections.shuffle(freeIndexes);
+		int value = freeIndexes.get(0);
+		
+		int xPlace = this.getXfromValue(value);
+		int yPlace = this.getYfromValue(value);
+		
+		agent.x(xPlace);
+		agent.y(yPlace);
+		
+		this.space[xPlace][yPlace] = agent;
+			
+		return true;
 	}
 	
 	/**
@@ -149,38 +72,11 @@ public abstract class Environment {
 		int x = agent.x();
 		int y = agent.y();
 		
-//		System.out.println("=====================================================");
-//		System.out.println("before : "+this.remainingIndexes.size());
-		//this.remainingIndexes.add(this.getValueFrom(x, y));
-//		System.out.println("after : "+this.remainingIndexes.size());
-		
 		this.space[x][y] = null;
+		
+	}
+	
 
-	}
-	
-	/**
-	 * Add an agent to the space and remove its position to the remainingIndexes.
-	 * 
-	 * @param agent the agent to be added
-	 * @return true if it has added the agent to the environment
-	 */
-	public boolean addAgent(Agent agent) {
-		//if (this.remainingIndexes.isEmpty()) return false;
-		
-		int x = agent.x();
-		int y = agent.y();
-		
-		//System.out.println("=====================================================");
-		//System.out.println("before : "+this.remainingIndexes.size());
-		//this.remainingIndexes.remove((Integer)this.getValueFrom(x, y));
-		//System.out.println(b);
-		//System.out.println("after : "+this.remainingIndexes.size());
-		
-		this.space[x][y] = agent;
-		
-		return true;
-	}
-	
 	/**
 	 * Move an agent from its previous place to the new one.
 	 * 
@@ -190,9 +86,10 @@ public abstract class Environment {
 	 */
 	public void moveAgent(Agent agent, int newXPlace, int newYPlace) {
 		this.removeAgent(agent);
+		
 		agent.x(newXPlace);
 		agent.y(newYPlace);
-		this.addAgent(agent);
+		this.space[newXPlace][newYPlace] = agent;
 	}
 
 	
@@ -212,7 +109,7 @@ public abstract class Environment {
 	 * @return if (x > this.size || y > this.size || x < 0 || y < 0) null else the Agent.
 	 */
 	public Agent getAgentAt(int x, int y) {
-		if (x > this.size || y > this.size || x < 0 || y < 0) return null;
+		//if (x > this.size || y > this.size || x < 0 || y < 0) return null;
 		
 		return this.space[x][y]; 
 	}
@@ -222,7 +119,7 @@ public abstract class Environment {
 	 * 
 	 * @return the space.
 	 */
-	public Agent[][] getAgents() { return this.space; }
+	public Agent[][] getAgentsSpace() { return this.space; }
 	
 	
 	/**
@@ -258,7 +155,4 @@ public abstract class Environment {
 		return value % this.size;
 	}
 
-	public int getIndexesSize() {
-		return this.remainingIndexes.size();
-	}
 }

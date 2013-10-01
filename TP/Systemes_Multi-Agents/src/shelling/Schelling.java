@@ -3,9 +3,7 @@ package shelling;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import core.Agent;
 import core.Environment;
 
 public class Schelling extends Environment {
@@ -13,10 +11,6 @@ public class Schelling extends Environment {
 	public Schelling(int size) {
 		super(size);
 	}
-
-	public void addAgentsTo(ArrayList<Agent> agents) {}
-
-	public void removeAgentsTo(ArrayList<Agent> agents) {}
 	
 	public void writeData() {
 		
@@ -28,9 +22,9 @@ public class Schelling extends Environment {
 		
 		for (int i=0; i<this.getSize(); i++)
 			for(int j=0; j<this.getSize(); j++) {
-				if(this.getAgents()[i][j]!=null) {
+				if(this.getAgentsSpace()[i][j]!=null) {
 					nAgent++;
-					People people = (People)this.getAgents()[i][j];
+					People people = (People)this.getAgentsSpace()[i][j];
 					satisfaction+=people.satisfaction();
 				}
 			}

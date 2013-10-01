@@ -54,7 +54,6 @@ public class Wator extends Environment {
 	}
 	
 	
-	@Override
 	public void addAgentsTo(ArrayList<Agent> agents) {
 		
 //		System.out.println("principale list : "+agents.size());
@@ -85,8 +84,8 @@ public class Wator extends Environment {
 		this.agentsToAdd.clear();
 		
 	}
+
 	
-	@Override
 	public void removeAgentsTo(ArrayList<Agent> agents) {
 
 //		System.out.println("principale list : "+agents.size());
@@ -133,7 +132,7 @@ public class Wator extends Environment {
 		
 		for (int i = 0; i< this.getSize(); i++) {
 			for (int j = 0; j< this.getSize(); j++) {
-				Agent agent = this.getAgents()[i][j];
+				Agent agent = this.getAgentsSpace()[i][j];
 				
 				if (agent != null) {
 					if ("PREY".equals(agent.type())) {
@@ -153,7 +152,7 @@ public class Wator extends Environment {
 		
 		for (int i = 0; i< this.getSize(); i++) {
 			for (int j = 0; j< this.getSize(); j++) {
-				Agent agent = this.getAgents()[i][j];
+				Agent agent = this.getAgentsSpace()[i][j];
 				
 				if (agent != null) {
 					if ("PREY".equals(agent.type())) {

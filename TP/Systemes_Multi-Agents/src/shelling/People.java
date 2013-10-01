@@ -23,7 +23,7 @@ public class People extends Agent {
 	}	
 
 	public void doAction() {
-		Agent[][] agents = this.environment().getAgents();
+		Agent[][] agents = this.environment().getAgentsSpace();
 		float nNeighbor=0; 
 		float nSatisfaction=0;
 		try { if(agents[this.x()-1][this.y()-1]!=null) {
@@ -73,8 +73,7 @@ public class People extends Agent {
 		}
 	}
 
-	private void move() {
-		
+	private void move() {		
 		this.environment.removeAgent(this);
 		this.environment.getPlace(this);
 	}

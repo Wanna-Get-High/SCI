@@ -1,7 +1,6 @@
 package wator;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 import core.Agent;
 import core.Environment;

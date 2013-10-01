@@ -38,16 +38,18 @@ public class MAS_FiveOrMore extends MultiAgentSystem {
 			System.exit(0);
 		}
 		
-		// we let the player do something
-		this.player.doAction();
-				
 		// we remove the agents
 		this.removeAgents();
 		
+		// we refresh the view
+		this.setChanged();
+		this.notifyObservers();
+		
+		// we let the player do something
+		this.player.doAction();
+				
 		// we add the 3 token
 		this.addToken(3);
-		
-		//printTable();
 	}
 
 	/**
@@ -73,16 +75,7 @@ public class MAS_FiveOrMore extends MultiAgentSystem {
 	 * @param nbToken the number of token to be added
 	 */
 	private void addToken(int nbToken) {
-		
-		for (int i = 0; i < nbToken; i++) {
-			// we create a token that isn't placed in the environement 
-			Token token = new Token(this.environment, ((Plan)this.environment).getRandomColor(), false);
-			
-			// we try to get a place for this token
-			// if doesn't get one we don't add it to the agents list 
-			if (this.environment.getPlace(token)) this.agents.add(token);
-		}
-		
+		((Plan)this.environment).addToken(nbToken, this.agents);
 	}
 
 	/**
@@ -90,47 +83,7 @@ public class MAS_FiveOrMore extends MultiAgentSystem {
 	 * depending on the table agentsToBeRemoved of the class Plan.
 	 */
 	private void removeAgents() {
-		// the table that contains the agent to be removed
-		boolean[][] agentsToRemove = ((Plan)this.environment).getAgentsToBeRemoved();
-		
-		// the agents in the space of the environement
-		Agent[][] agents = this.environment.getAgentsSpace();
-		
-		int size = this.environment.getSize();
-		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				// if the value at this point is true then 
-				if (agentsToRemove[i][j]) {
-					// remove from the list
-					this.agents.remove(agents[i][j]);
-					// remove from the table
-					this.environment.removeAgent(agents[i][j]);
-				}
-			}
-		}
-		
-		// reset the values
-		((Plan)this.environment).resetAgentsToBeRemoved();
+		((Plan)this.environment).removeAgentsFrom(this.agents);
 	}
-
-	/**
-	 * print the boolean table that contains the agent to be removed.
-	 */
-	public void printTable() {
-		
-		boolean[][] agentsToRemove = ((Plan)this.environment).getAgentsToBeRemoved();
-		int size = this.environment.getSize();
-		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				System.out.print(agentsToRemove[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println("=============================");
-	}
-	
-	
 	
 }

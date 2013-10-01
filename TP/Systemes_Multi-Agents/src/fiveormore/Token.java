@@ -61,8 +61,8 @@ public class Token extends Agent {
 		int currentXIndex = this.x + xStep; 
 		int currentYIndex = this.y + yStep;
 		
-		// initialize the list and the countedAgent value
-		int countedAgent = 0;
+		// initialize the list and the countedAgent value to 1 (himself)
+		int countedAgent = 1;
 		ArrayList<Agent> agentsToRemove = new ArrayList<Agent>();
 		
 		// check if the new indexes are in the range of the table
@@ -73,22 +73,23 @@ public class Token extends Agent {
 				&& agents[currentXIndex][currentYIndex] != null
 				&& agents[currentXIndex][currentYIndex].color() == this.color ) {
 			
+			// we add the agent to the agents to remove
 			agentsToRemove.add(agents[currentXIndex][currentYIndex]);
-			countedAgent++;
 			
+			countedAgent++;
 			currentXIndex += xStep;
 			currentYIndex += yStep;
 		}
 		
-		//System.out.println(counted agent);
-		
 		// if there is 5 or more agent in line,
 		// put true in the table at the place of the agents
 		if (countedAgent >= 5) {
-			for (Agent agent : agentsToRemove) {
-				((Plan)this.environment).getAgentsToBeRemoved()[agent.x()][agent.y()] = true;
-			}
 			
+			agentsToRemove.add(this);
+			
+			for (Agent agent : agentsToRemove) {
+				((Plan)this.environment).setAgentToBeRemoved(agent.x(),agent.y());
+			}
 		}
 		
 		// set to null for garbage collector

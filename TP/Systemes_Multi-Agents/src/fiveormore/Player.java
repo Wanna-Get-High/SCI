@@ -94,7 +94,9 @@ public class Player extends Agent {
 				// we move the index for the cell to check
 				index++;
 			}
-			System.out.println("No path is available from ["+this.startX+","+this.startY+"]["+this.arrivalX+","+this.arrivalY+"]");
+			
+			if (aPathIsntFound)
+				System.out.println("No path is available from ["+this.startX+","+this.startY+"]["+this.arrivalX+","+this.arrivalY+"]\n");
 		}
 
 		// TODO : add a visible movement between start and arrival
@@ -136,23 +138,18 @@ public class Player extends Agent {
 	 */
 	private boolean getValuesFromUser() {
 		
-		this.printAgent();
-		
 		Scanner user_input = new Scanner(System.in);
 		
 		try {
 			System.out.print("Enter the X start : ");
 			this.startX = user_input.nextBigInteger().intValue();
-			
-			System.out.println();
+
 			System.out.print("Enter the Y start : ");
 			this.startY = user_input.nextBigInteger().intValue();
-			
-			System.out.println();
+
 			System.out.print("Enter the X arrival : ");
 			this.arrivalX = user_input.nextBigInteger().intValue();
 			
-			System.out.println();
 			System.out.print("Enter the Y arrival : ");
 			this.arrivalY = user_input.nextBigInteger().intValue();
 			System.out.println();
@@ -167,23 +164,9 @@ public class Player extends Agent {
 		{
 			return true;
 		} else {
-			System.out.println(this.environment.getAgentAt(startX, startY));
-			System.out.println(this.environment.getAgentAt(arrivalX, arrivalY));
 			System.out.println("you must enter valid indexes : start must contain a token and arrival should be empty");
 			return false;
 		}
 	}
 	
-	private void printAgent() {
-		int size = this.environment.getSize();
-		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				System.out.print(this.environment.getAgentAt(i, j)!=null?1+" ":0+" ");
-			}
-			System.out.println();
-		}
-		System.out.println("===============================================");
-	}
-
 }

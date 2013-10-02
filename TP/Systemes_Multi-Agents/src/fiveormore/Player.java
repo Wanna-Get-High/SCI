@@ -20,7 +20,6 @@ public class Player extends Agent {
 	private int arrivalX;
 	private int arrivalY;
 	
-	
 	public Player(Environment env) {
 		super(env);
 	}

@@ -10,119 +10,59 @@ import core.Environment;
 
 
 /**
- * 
+ * This is the environment for the Prey-Predator Simulation.<br>
  * 
  * @author Alexis Linke - Francois Lepan
  *
  */
 public class Wator extends Environment {
-	
-	private int preybreed;
-	private int predatorbreed;
-	private int starve;
-	
-	/**
-	 * this list contains the new born agent
-	 */
+
+	/** This list contains the new agent after a cycle */
 	protected ArrayList<Agent> agentsToAdd;
 	
-	/**
-	 * this list contains the agents that are dead and has to be removed
-	 */
+	/** This list contains the agents that are dead and has to be removed */
 	protected ArrayList<Agent> agentsToRemove;
-	
-	/**
-	 * 
-	 */
-	protected ArrayList<Agent> agentsToMove;
-	protected ArrayList<Agent> agentsToRemoveMove;
 
 	
-	
-	
-	public Wator(int size, int preybreed, int predatorbreed, int starve) {
+	public Wator(int size) {
 		super(size);
-		this.preybreed = preybreed;
-		this.predatorbreed = predatorbreed;
-		this.starve = starve;
 
 		this.agentsToAdd = new ArrayList<Agent>();
-		this.agentsToRemove = new ArrayList<Agent>();	
-		this.agentsToMove = new ArrayList<Agent>();
-		this.agentsToRemoveMove = new ArrayList<Agent>();
-		
+		this.agentsToRemove = new ArrayList<Agent>();		
 	}
 	
 	
 	public void addAgentsTo(ArrayList<Agent> agents) {
 		
-//		System.out.println("principale list : "+agents.size());
-//		System.out.println("add list : "+this.agentsToAdd.size());
+		for (Agent agent : this.agentsToAdd) {
+			if(this.getPlace(agent)) {
+				agents.add(agent);
+			}
+		}
 		
-		//System.out.println("to be added : ");
-		
-//		for (Agent agent : this.agentsToMove) {
-//			this.addAgent(agent);
-//			//agents.add(agent);
-//		}
-		
-//		for (Agent agent : this.agentsToAdd) {
-//			if(this.getPlace(agent)) {
-//				agents.add(agent);
-//			}
-//		}
-		agents.clear();
-		agents.addAll(this.agentsToAdd);
-		
-		
-
-		//System.out.println("agentsToMove : "+this.agentsToMove.size());
-		//System.out.println("agentsToAdd : "+this.agentsToAdd.size());
-		
-//		System.out.println("list after : "+agents.size());
-		
-		this.agentsToAdd.clear();
-		
+		this.agentsToAdd.clear();		
 	}
 
 	
 	public void removeAgentsTo(ArrayList<Agent> agents) {
 
-//		System.out.println("principale list : "+agents.size());
-		System.out.println("agentsToRemove : "+this.agentsToRemove.size());
-		System.out.println("agentsToRemoveMove : "+this.agentsToRemoveMove.size());
-		
-//		for (Agent agent : this.agentsToRemoveMove) {
-//			this.removeAgent(agent);
-//		}
-		
 		for (Agent agent : this.agentsToRemove) {
-			this.removeAgent(agent);
+			// only remove the predator from the board because the prey places 
+			// are already used by the predator that killed them
+			if ( agent.getClass().equals(Predator.class)) this.removeAgent(agent);
+			
 			agents.remove(agent);
 		}
-		
-//		System.out.println("list after : "+agents.size());
-		
+
 		this.agentsToRemove.clear();
-		this.agentsToRemoveMove.clear();
 	}
 	
-
-	public void addToNextGeneration(Agent agent) {
-
+	public void addAgentToList(Agent agent) {
 		this.agentsToAdd.add(agent);
 	}
 	
-	public void addPrey() {
-		this.agentsToAdd.add(new Prey(this, this.preybreed, true));
-	}
-	
-	public void addPredator() {
-		this.agentsToAdd.add(new Predator(this, this.predatorbreed, this.starve, true));
-	}
-	
-	public void freeAgent(Agent agent) {
-		this.removeAgent(agent);
+	public void removeAgentFromList(Agent agent) {
+		this.agentsToRemove.add(agent);
 	}
 	
 	
@@ -135,7 +75,7 @@ public class Wator extends Environment {
 				Agent agent = this.getAgentsSpace()[i][j];
 				
 				if (agent != null) {
-					if ("PREY".equals(agent.type())) {
+					if (agent.getClass().equals(Prey.class)) {
 						nbPrey++;
 					} else {
 						nbPred++;
@@ -155,7 +95,7 @@ public class Wator extends Environment {
 				Agent agent = this.getAgentsSpace()[i][j];
 				
 				if (agent != null) {
-					if ("PREY".equals(agent.type())) {
+					if (agent.getClass().equals(Prey.class)) {
 						ages += ((Prey)agent).getAge() + " ";
 					} else {
 						ages += ((Predator)agent).getAge() + " ";

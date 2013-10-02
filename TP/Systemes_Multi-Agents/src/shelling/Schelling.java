@@ -6,6 +6,12 @@ import java.io.IOException;
 
 import core.Environment;
 
+
+/**
+ * This is the environment for the Schelling method.
+ * 
+ * @author Francois Lepan, Alexis Linke
+ */
 public class Schelling extends Environment {
 	
 	public Schelling(int size) {

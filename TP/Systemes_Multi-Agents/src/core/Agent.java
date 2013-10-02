@@ -2,23 +2,22 @@ package core;
 
 import java.awt.Color;
 
-
-
 /**
- * This is the agent class.<b>
- * <b>
- * This abstract class is used to store the position, current direction of the agent
- * in the environment.<b>
- * <b>
- * It has to be inherited by another class that will implement the behavior of a particular agent.
+ * This is the agent class.<br>
+ * <br>
+ * This abstract class is used to store :<br>
+ * - its environment,<br>
+ * - its position (x,y),<br>
+ * - the current direction of the agent in the environment.<b>
+ * - the type of agent,<br>
+ * - and the color of this agent.<br>
+ * <br>
+ * It has to be inherited by another class that will implement the behavior (doAction) of a particular agent.
  * 
  * @author Francois Lepan - Alexis Linke
  *
  */
 public abstract class Agent {
-
-	/** The type of the agent */
-	private String type;
 	
 	/** The position of the agent on the x axis of the environment. */
 	protected int x;
@@ -90,14 +89,14 @@ public abstract class Agent {
 	 * 
 	 * @param x the new direction on the x axis
 	 */
-	public void setNewDirectionOfX(int x) { this.currentDirection.x(x); }
+	public void setNewXDirection(int x) { this.currentDirection.x(x); }
 	
 	/**
 	 * Set the new direction on the y axis of this agent;
 	 * 
 	 * @param y the new direction on the y axis
 	 */
-	public void setNewDirectionOfY(int y) { this.currentDirection.y(y); }
+	public void setNewYDirection(int y) { this.currentDirection.y(y); }
 	
 	/**
 	 * Set the x position of this agent;
@@ -133,20 +132,6 @@ public abstract class Agent {
 	 * @return environment of this Agent.
 	 */
 	public Environment environment() { return this.environment; }
-	
-	/**
-	 * Get the type of this Agent.
-	 * 
-	 * @return type of this Agent.
-	 */
-	public String type() { return this.type; }
-	
-	/**
-	 * Set the type of this Agent.
-	 * 
-	 * @param type of this Agent.
-	 */
-	public void type(String type) { this.type=type; }
 	
 	/**
 	 * Get the color of this agent.

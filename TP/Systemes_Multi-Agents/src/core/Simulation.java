@@ -23,14 +23,13 @@ import wator.Wator;
 
 
 /**
- * The main class. <b>
- * It runs the simulation based on 4 parameters : <b>
- * the environment size, the number of agent, the number of turns and the delay between each turn. <b>
- * <b>
+ * The main class. <br>
+ * It runs the simulation based on 4 parameters : <br>
+ * the environment size, the number of agent, the number of turns and the delay between each turn. <br>
+ * <br>
  * java Simulation.class <environment size> <number of agent> <number of turns> <delay between each turn>
  * 
  * @author Francois Lepan - Alexis Linke
- *
  */
 public class Simulation {
 
@@ -45,7 +44,8 @@ public class Simulation {
 		System.out.println("\t\tjava "+this.getClass().getCanonicalName()+" -w <environment size> <nb fish> <nb shark> <prey breed> <predator breed> <starve delay> <number of turns> <delay between each turn>");
 		System.out.println("\tfor the segregation :");
 		System.out.println("\t\tjava "+this.getClass().getCanonicalName()+" -s <environment size> <nb people> <threshold> <number of turns> <delay between each turn>");
-		
+		System.out.println("\tfor the 5 or more :");
+		System.out.println("\t\tjava "+this.getClass().getCanonicalName()+" -f <number of turns> <delay between each turn>");
 		System.out.println("");
 	}
 	
@@ -133,7 +133,7 @@ public class Simulation {
 				}
 				
 				// we create the environment
-				Wator wat = new Wator(size, preybreed, predatorbreed, starve);
+				Wator wat = new Wator(size);
 				
 				// we create the agents
 				ArrayList <Agent> agents = new ArrayList<Agent>();

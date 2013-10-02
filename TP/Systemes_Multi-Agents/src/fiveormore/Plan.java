@@ -19,7 +19,7 @@ import core.Environment;
 public class Plan extends Environment {
 
 	/** The different colors of this game */
-	private Color[] colors = { Color.BLUE, Color.BLUE, Color.CYAN, Color.GREEN, Color.RED, Color.YELLOW, Color.ORANGE };
+	private Color[] colors = { Color.BLUE, Color.PINK, Color.CYAN, Color.GREEN, Color.RED, Color.YELLOW, Color.BLACK };
 	
 	/** The table that contains true if an agent at the same place has to be removed. */
 	private boolean[][] agentsToBeRemoved;  

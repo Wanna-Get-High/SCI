@@ -7,7 +7,7 @@ import core.Agent;
 import core.Environment;
 
 /**
- * This is an actor for the five or more game.<br>
+ * This is an Agent for the five or more game.<br>
  * <br>
  * It checks if there are 5 or more in a line of his kind :<br>
  *  - top right,<br>
@@ -16,7 +16,7 @@ import core.Environment;
  *  - bottom.<br>
  * 
  * @author Francois Lepan, Alexis Linke
- *
+ * 
  */
 public class Token extends Agent {
 

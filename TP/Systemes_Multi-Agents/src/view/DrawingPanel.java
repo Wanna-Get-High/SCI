@@ -6,9 +6,6 @@ import javax.swing.JPanel;
 
 import core.Agent;
 
-
-
-
 /**
  * This class is the panel that draw the balls inside the environment.
  * It only needs the position of the Agent inside the space of the environment to draw them on a panel.
@@ -24,9 +21,19 @@ public class DrawingPanel extends JPanel {
 	/** The The space in which the Agents will move and do actions. */
 	protected Agent[][] space;
 	
+	/** A boolean that tells if the view has to draw lines between each cell or not */
 	private boolean drawLines;
+	
+	/** A boolean that tells if the view has to draw the axis or not */
 	private boolean drawAxis;
 	
+	/**
+	 * The basic constructor.
+	 * 
+	 * @param space the space where the agents move
+	 * @param drawLines true if you want lines to be drawn between each cell of the space
+	 * @param drawAxis true if you want to show x and y axis.
+	 */
 	public DrawingPanel(Agent[][] space, boolean drawLines, boolean drawAxis) {
 		this.space = space;
 		this.drawLines = drawLines;

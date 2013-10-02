@@ -139,5 +139,4 @@ public abstract class Agent {
 	 * @return the color of this agent
 	 */
 	public Color color() { return this.color; }
-	
 }

@@ -25,7 +25,6 @@ public class Environment {
 	public Environment(int size) {
 		this.size = size;		
 		this.space = new Agent[size][size];
-
 	}
 	
 	/**

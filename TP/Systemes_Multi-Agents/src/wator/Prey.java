@@ -24,13 +24,24 @@ public class Prey extends Agent {
 	/** Number of cycles a prey must exist before reproducing */
 	private int spawnCycle;
 
+	/**
+	 * The basic Constructor.<br>
+	 * - Set the color of the prey to GREEN,<br>
+	 * - set a random direction,<br>
+	 * - and set his age to 1.
+	 * 
+	 * @param env the Environment of this Prey
+	 * @param spawnCycle The number of turn that is needed before this Prey can spawn a new Prey
+	 * @param getAPlace If true get a place on the Environment.
+	 */
 	public Prey(Environment env, int spawnCycle, boolean getAPlace) {
+		
 		super(env);
-
-		this.color = Color.GREEN;
 		this.spawnCycle = spawnCycle;
-		this.age = 1;
+		
+		this.color = Color.GREEN;
 		this.currentDirection.getRandomDirection();
+		this.age = 1;
 
 		if (getAPlace) this.environment.getPlace(this);
 	}
@@ -38,6 +49,7 @@ public class Prey extends Agent {
 
 	@Override
 	public void doAction() {
+		// if this agent can 
 		if(this.age % this.spawnCycle == 0) { 
 			this.spawnNewPrey();
 		}
@@ -81,7 +93,7 @@ public class Prey extends Agent {
 	}
 
 	/**
-	 * Get the age of this agent.
+	 * Get the age of this prey.
 	 * 
 	 * @return his age.
 	 */

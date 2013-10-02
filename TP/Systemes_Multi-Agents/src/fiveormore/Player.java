@@ -95,7 +95,7 @@ public class Player extends Agent {
 			}
 			
 			if (aPathIsntFound)
-				System.out.println("No path is available from ["+this.startX+","+this.startY+"]["+this.arrivalX+","+this.arrivalY+"]\n");
+				System.out.println("No path is available from ["+this.startX+","+this.startY+"] to ["+this.arrivalX+","+this.arrivalY+"]\n");
 		}
 
 		// TODO : add a visible movement between start and arrival

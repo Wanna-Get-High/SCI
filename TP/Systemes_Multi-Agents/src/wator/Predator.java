@@ -32,13 +32,25 @@ public class Predator extends Agent {
 	/** The number of turn that a shark can live without eating */
 	private int maximumStarvingValue;
 
+	/**
+	 * The basic Constructor.<br>
+	 * - Set the color of the predator to RED,<br>
+	 * - set a random direction,<br>
+	 * - set its maximum cycle without eating,<br>
+	 * - and set his age to 1.
+	 * 
+	 * @param env the Environment of this Predator
+	 * @param spawnCycle The number of turn that is needed before this Predator can spawn a new Predator
+	 * @param getAPlace If true get a place on the Environment.
+	 */
 	public Predator(Environment env, int spawnCycle, int maximumStarvingValue, boolean getAPlace) {
+		
 		super(env);
-
 		this.spawnCycle = spawnCycle;
 		this.maximumStarvingValue = maximumStarvingValue;
-		this.age = 1;
 		this.starvingValue = 0;
+		
+		this.age = 1;
 		this.color = Color.RED;
 
 		if (getAPlace) this.environment.getPlace(this);
@@ -47,6 +59,7 @@ public class Predator extends Agent {
 	@Override
 	public void doAction() {
 
+		// if this predator starve to death
 		if (this.starvingValue > this.maximumStarvingValue) {
 			this.killAgent(this);
 		} else {
@@ -87,7 +100,7 @@ public class Predator extends Agent {
 		// the new place isn't empty
 		else { 
 
-			// it'a a prey eat it
+			// it's a prey eat it
 			if(agent.getClass().equals(Prey.class)) {
 				this.killAgent(agent);
 				this.environment.moveAgent(this, newXPlace, newYPlace);
@@ -111,10 +124,16 @@ public class Predator extends Agent {
 	
 	/** 
 	 * Create a new Predator without giving him a new position.
+	 * His position will be set at the end of the Agents turn ( Wator.addAgentToList )
 	 */
 	private void spawnNewPredator() { 
 		((Wator)this.environment).addAgentToList(new Predator(this.environment, this.spawnCycle, this.maximumStarvingValue, false));
 	}
 	
+	/**
+	 * Get the age of this predator.
+	 * 
+	 * @return his age.
+	 */
 	public String getAge() { return this.age + ""; }
 }

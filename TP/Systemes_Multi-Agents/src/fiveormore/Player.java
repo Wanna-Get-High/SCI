@@ -44,7 +44,7 @@ public class Player extends Agent {
 			while(!this.getValuesFromUser()){}
 			
 			// initialize the cell to check indexes.
-			Integer[][] cellToCheck = new Integer[size*size][size]; 
+			Integer[][] cellToCheck = new Integer[size*size][2]; 
 			
 			// initialize the neighbor with the cell to arrive
 			cellToCheck[0][0] = this.arrivalX;
@@ -53,7 +53,7 @@ public class Player extends Agent {
 			int index = 0;
 			int addNeighborIndex = 1;
 			
-			pathGrid = this.initializeGrid(cellToCheck[0]);
+			pathGrid = this.initializeGrid();
 			
 			// while there are neighbors to check or the start isn't founded
 			while (aPathIsntFound && (index < size*size) && cellToCheck[index][0] != null ) {
@@ -72,7 +72,11 @@ public class Player extends Agent {
 						
 						// if we found the arrival
 						if (neighbourgXIndex == this.startX && neighbourgYIndex == this.startY) {
+							
 							aPathIsntFound = false;
+							
+							// we put the current value + 1
+							pathGrid[neighbourgXIndex][neighbourgYIndex] = pathGrid[cellToCheck[index][0]][cellToCheck[index][1]] +1;
 						}
 						// else if the place is empty
 						else if (pathGrid[neighbourgXIndex][neighbourgYIndex] == null ) {
@@ -100,19 +104,19 @@ public class Player extends Agent {
 
 		// TODO : add a visible movement between start and arrival
 		
+		
+		
 		// we move the agent to the position
 		this.environment.moveAgent(this.environment.getAgentAt(this.startX, this.startY), this.arrivalX , this.arrivalY);
 	}
 
 	/**
 	 * Initialize the table that will be filled of values to detect if there is a path between the start and the arrival.<br>
-	 * It puts Integer.MAX_VALUE where an Agent is at the same place and 0 to the arrival.
-	 * 
-	 * @param arrivalIndexes the position of the arrival.
+	 * It puts Integer.MAX_VALUE where an Agent is at the same place, 0 to the arrival and null to the start.
 	 * 
 	 * @return the table that will be used to check the smallest path.
 	 */
-	private Integer[][] initializeGrid(Integer[] arrivalIndexes) {
+	private Integer[][] initializeGrid() {
 		
 		int size = this.environment.getSize();
 		Integer[][] table = new Integer[size][size];
@@ -125,11 +129,13 @@ public class Player extends Agent {
 			}
 		}
 		
-		table[arrivalIndexes[0]][arrivalIndexes[1]] = 0;
+		table[this.arrivalX][this.arrivalY] = 0;
+		table[this.startX][this.startY] = null;
 		
 		return table;
 	}
 
+	
 	/**
 	 * Retrieve the 4 values (start and arrival) from the user.
 	 * 
@@ -167,5 +173,4 @@ public class Player extends Agent {
 			return false;
 		}
 	}
-	
 }

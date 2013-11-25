@@ -1,0 +1,4 @@
+termites	MoveRandomly	0
+termites 	MoveRandomly 	10	chips	1
+termites 	PutDown 	20      chips   0.3
+termites 	PickUp 		30 	chips 	1

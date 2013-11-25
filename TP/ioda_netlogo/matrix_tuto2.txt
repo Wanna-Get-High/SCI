@@ -1,0 +1,4 @@
+turtles MoveRandomly 0
+turtles PutDown 10
+turtles FindEmptyPlace 20
+turtles PickUp 30

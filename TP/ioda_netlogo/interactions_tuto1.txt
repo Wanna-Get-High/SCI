@@ -1,0 +1,7 @@
+interaction MoveRandomly
+	actions wiggle
+end
+
+interaction Delete
+  actions target:die
+end

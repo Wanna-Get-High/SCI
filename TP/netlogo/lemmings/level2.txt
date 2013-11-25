@@ -1,0 +1,18 @@
+[10 15]
+[10 50 5]
+[["floater" 10]]
+XXXXXXXXXX
+XI       X
+X.....   X
+X        X
+X        X
+X        X
+X        X
+X        X
+X   .....X
+X        X
+X        X
+X        X
+X        X
+XO       X
+XXXXXXXXXX

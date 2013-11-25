@@ -1,0 +1,98 @@
+; This file can be used to define your own interactions.
+; SYNTAX:
+; [EXCLUSIVE|PARALLEL] INTERACTION <name>
+; [TRIGGER <tr1> ... <tr_n>]
+; [CONDITION <cond1> ... <cond_n>]
+; [ACTIONS <act1> ... <act_n>]
+; END
+;
+; NB1: tr_i and cond_i are abstract condition primitives,
+; which must be implemented by concrete reporters, while
+; act_i are abstract action primitives, which must be
+; implemented by concrete commands.
+;
+; NB2: any non-letter, non-digit character at the beginning
+; of the line introduces a comment line. Empty lines are ignored.
+;
+
+interaction Die
+  trigger   low-strength?
+  actions   die
+end
+
+interaction Create
+  trigger   time-to-create?
+  condition not-finished?
+  actions   produce-creature
+end
+
+interaction Save
+  actions   rescue target:die
+end
+
+interaction Float
+  trigger   nothing-below?
+  condition floater?
+  actions   float advance
+end
+
+interaction Dig
+  trigger   something-below?
+  condition is-ground?
+  actions   dig advance
+end
+
+interaction Fall
+  trigger   nothing-below?
+  actions   fall advance
+end
+
+interaction Crash
+  trigger   something-below? falling? long-fall?
+  trigger   end-of-game?
+  actions   crash
+end  
+  
+interaction Land
+  trigger   something-below?
+  condition falling?
+  actions   recover-direction
+end  
+
+interaction Walk
+  condition no-obstacle-ahead? 
+  actions   advance
+end
+
+interaction TurnBack
+  actions   reverse-direction
+end
+
+interaction UpdateShape
+  condition moving?
+  actions   change-shape
+end
+
+interaction Weaken
+  trigger   crashed?
+  condition still-strength?
+  actions   decrease-strength
+end
+
+interaction BecomeDigger
+  trigger   selected?
+  condition digger-tool? enough-aptitudes? not-digger?
+  actions   add-digger-aptitude unselect
+end
+
+interaction BecomeBlocker
+  trigger   selected?
+  condition blocker-tool? enough-aptitudes? not-blocker?
+  actions   add-blocker-aptitude unselect
+end
+
+interaction BecomeFloater
+  trigger   selected?
+  condition floater-tool? enough-aptitudes? not-floater?
+  actions   add-floater-aptitude unselect
+end

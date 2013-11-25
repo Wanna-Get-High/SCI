@@ -1,0 +1,8 @@
+[10 5]
+[10 50 10]
+[]
+XXXXXXXXXX
+XI       X
+X..... . X
+XO       X
+XXXXXXXXXX

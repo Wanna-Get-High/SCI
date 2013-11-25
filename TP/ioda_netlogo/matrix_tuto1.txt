@@ -1,0 +1,3 @@
+turtles MoveRandomly 0
+
+turtles Delete 1 turtles 1

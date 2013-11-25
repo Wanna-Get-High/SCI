@@ -1,0 +1,13 @@
+[10 10]
+[10 50 5]
+[["blocker" 2]]
+XXXXXXXXXX
+XI       X
+X..... . X
+X        X
+X. ..... X
+X        X
+X...     X
+X        X
+XO       X
+XXXXXXXXXX

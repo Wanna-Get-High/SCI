@@ -269,7 +269,6 @@ to lemmings::fall
   if (delta-x != 0) [ set last-dx delta-x ]
   set delta-x 0
   set delta-y -1
-  
   set speed 1
   set fall-length fall-length + 1
 end
@@ -287,7 +286,7 @@ to-report lemmings::long-fall?
 end
 
 to lemmings::crash
-  set delta-x 0 set delta-y 0 set shape "splash" set color red
+  set delta-x 0 set delta-y 0 set shape "splash" set color red 
 end
 
 to lemmings::recover-direction
@@ -370,13 +369,18 @@ end
 ;                             DIGGER
 ; ------------------------------------------------------------ ;
 to lemmings::dig
+  if ()
+  if (delta-x != 0) [set last-dx delta-x]
+  set delta-x 0
+  set delta-y -1
+  set speed 0.1
   
 end
 
 to-report lemmings::is-ground?
   ; -0.5 car le digger est au milieu
-  ; - speed pour taper sur l'agent
-  report ground-on patch-at 0 (-0.5 - speed)
+  ; - speed pour taper sur l'agent (si speed elever -> on tape plus loins)
+  report any? ground-on patch-at 0 (-0.5 - speed)
 end
 
 to-report lemmings::digger-tool?
@@ -393,12 +397,13 @@ to lemmings::add-digger-aptitude
   set delta-x 0
   set color blue
 end
+
 @#$#@#$#@
 GRAPHICS-WINDOW
-496
-11
-756
-167
+482
+10
+742
+166
 -1
 -1
 25.0

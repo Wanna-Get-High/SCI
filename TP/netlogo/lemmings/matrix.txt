@@ -13,20 +13,22 @@
 ;
 
 
-entrances	Create			0	
-exits		Save			0		lemmings	0.8		ALL
+entrances	Create	0	
 
-lemmings	Die				100
-lemmings	Dig     		60
-lemmings	Crash			50	
-lemmings	Land			40
-lemmings	Float   		30
-lemmings	Fall			20
-lemmings	Walk			10
-lemmings	TurnBack		0		
+exits		Save	0	lemmings 0.8	ALL
 
-lemmings	BecomeBlocker	100		UPDATE
-lemmings	BecomeFloater	100		UPDATE
-lemmings	BecomeDigger	100		UPDATE
-lemmings	Weaken			90		UPDATE
-lemmings	UpdateShape		0		UPDATE
+lemmings	Die		100
+lemmings	Crash	50	
+lemmings	Land	40	
+lemmings	Float 	30
+lemmings	Dig 	25
+lemmings	Fall	20
+lemmings	Walk	10
+lemmings	TurnBack 0		
+
+lemmings	BecomeBlocker	100	UPDATE
+lemmings	BecomeFloater	100	UPDATE
+lemmings	BecomeDigger	100	UPDATE
+lemmings	Weaken		90	UPDATE
+lemmings	UpdateShape	0	UPDATE
+

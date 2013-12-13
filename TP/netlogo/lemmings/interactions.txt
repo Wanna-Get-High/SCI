@@ -30,18 +30,6 @@ interaction Save
   actions   rescue target:die
 end
 
-interaction Float
-  trigger   nothing-below?
-  condition floater?
-  actions   float advance
-end
-
-interaction Dig
-  trigger   something-below?
-  condition is-ground?
-  actions   dig advance
-end
-
 interaction Fall
   trigger   nothing-below?
   actions   fall advance
@@ -68,6 +56,7 @@ interaction TurnBack
   actions   reverse-direction
 end
 
+
 interaction UpdateShape
   condition moving?
   actions   change-shape
@@ -77,12 +66,6 @@ interaction Weaken
   trigger   crashed?
   condition still-strength?
   actions   decrease-strength
-end
-
-interaction BecomeDigger
-  trigger   selected?
-  condition digger-tool? enough-aptitudes? not-digger?
-  actions   add-digger-aptitude unselect
 end
 
 interaction BecomeBlocker
@@ -96,3 +79,23 @@ interaction BecomeFloater
   condition floater-tool? enough-aptitudes? not-floater?
   actions   add-floater-aptitude unselect
 end
+
+interaction Float
+  trigger   nothing-below?
+  condition floater?
+  actions   float advance
+end
+
+interaction BecomeDigger
+  trigger   selected?
+  condition digger-tool? enough-aptitudes? not-digger?
+  actions   add-digger-aptitude unselect
+end
+
+interaction Dig
+  trigger   something-below?
+  condition is-ground?
+  actions   dig advance
+end
+
+
